@@ -1,0 +1,1 @@
+const schedule = require('../models/schedule-model');
