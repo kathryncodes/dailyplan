@@ -8,7 +8,7 @@ const { ensureAuth, ensureGuest } = require("../middleware/auth");
 //routes
 
 router.get("/", async (req, res) => {
-    res.render("test.ejs");
+    res.render("index.ejs");
   }) 
   
   //--> main controller or home controller

@@ -1,6 +1,7 @@
 module.exports = {
-    getDashboard: async (req, res) => {
-        res.render("test.ejs")
+    getDashboard: (req, res) => {
+        res.render("index.ejs");
     }
-}
+};
+
 

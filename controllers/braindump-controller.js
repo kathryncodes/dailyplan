@@ -12,6 +12,7 @@ module.exports = {
                 title: req.body.title,
                 text: req.body.text
             })
+            res.redirect("/")
             //redirect to updated dashboard with empty braindump module
         }
         catch(err){

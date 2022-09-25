@@ -7,8 +7,8 @@ const braindumpSchema = new mongoose.Schema({
         default: "Brain Dump"
     },
     text:{
-        type: String,
-        required: true
+        type: String
+        // required: true
     },
     date: {
         type: Date,
