@@ -7,15 +7,15 @@ const remindersSchema = new mongoose.Schema({
 
 const reminderItemsSchema = new mongoose.Schema({
     date: {
-        type: Date, //check date formatting
-        required: true
+        type: Date //check date formatting
+        //required: true
     },
     time: {
         type: String //double check this --> how is time formatted?
     },
     text: {
-        type: String,
-        required: true
+        type: String
+        //required: true
     }
 })
 

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
     text:{
-        type: String,
-        required: true
+        type: String
+        //required: true
     },
     priority:{
         type: String,
@@ -21,7 +21,7 @@ const itemSchema = new mongoose.Schema({
 const TodoSchema = new mongoose.Schema({
     title:{
         type: String, 
-        required: true, 
+        //required: true, 
         default: "To Do"
     },
     items: [itemSchema]
