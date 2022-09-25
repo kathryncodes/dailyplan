@@ -28,6 +28,14 @@ const TodoSchema = new mongoose.Schema({
     
 })
 
+// const TodoSchema = moduleSchema.discriminator("todo", new mongoose.Schema({
+//     title:{
+//         type: String, 
+//         required: true, 
+//         default: "To Do"
+//     },
+//     items: [itemSchema]
+// }))
 
 
 module.exports = mongoose.model('todoList', TodoSchema );

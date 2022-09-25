@@ -1,1 +1,0 @@
-const stickyNote = require('../models/stickynote-model');

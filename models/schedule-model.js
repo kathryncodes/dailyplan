@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+//const moduleSchema = require('./modules')
 
 const block = new mongoose.Schema({
     startTime:{
@@ -19,6 +20,7 @@ const block = new mongoose.Schema({
 });
 
 const scheduleSchema = new mongoose.Schema({
+
     title: {
         type: String,
         default: "Today's plan"
