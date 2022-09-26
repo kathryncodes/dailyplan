@@ -2,7 +2,7 @@
 import SignupComponent  from '../components/signup';
 import LoginComponent  from '../components/login'
 import { Routes, Route } from 'react-router-dom'
-import { Link } from 'react'
+import { Link } from 'react-router-dom'
 
 const HomePage = () =>{
 

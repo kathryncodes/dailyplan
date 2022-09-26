@@ -9,8 +9,6 @@ function App() {
   return (
     <div className="App">
 
-      <h1>This is the App.js file</h1>
-
       <Routes>
         {/* Direct to Home Page (define login/logout/signup routes in home component?) */}
         <Route path="/*" element={ <HomePage /> } />
