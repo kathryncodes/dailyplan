@@ -1,28 +1,34 @@
-const schedule = require('../models/schedule-model');
-//const moduleCollection = require('../models/modules');
+const scheduleModel = require('../models/schedule-model');
+const modules = require('../models/modules')
 
 module.exports = {
     getSchedule : async (req, res) => {
         //find schedule by id
+        const schedule = await modules.findById(req.params.id)
         //render to dashboard
     }, 
     newSchedule : async (req, res) => {
-        //create new schedule
+        //create new empty schedule
+        const newSchedule = await modules.create({
+            moduleType: "schedule"
+        })
         //render to dashboard
     },
     addBlock : async (req, res) => {
         //find schedule by id 
+        const schedule = await modules.findOneAndUpdate({_id: req.params.id}, {
+            $push: {
+                blocks: {
+                    task: "", 
+                    duration: ""
+                }
+            }
+        })
         //push new block to blocks array
     },
-    editBlock : async (req, res) => {
-        //find schedule by id
-        //find block (by array index? text?)
-        //set text to text input
-        //set duration to duration input
-        //render dashboard
-    }, 
     deleteBlock : async (req, res) => {
         //find schedule by id
+        const schedule = await modules.findById();
         //find block (by array index?)
         //remove block from blocks array
         //render dashboard
@@ -30,6 +36,8 @@ module.exports = {
     deleteSchedule : async(req, res) => {
         //find schedule by id
         //delete schedule
+        await modules.findOneAndDelete({_id: req.params.id})
         //render dashboard
+        res.redirect("/dashboard")
     }
 }

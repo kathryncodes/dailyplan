@@ -10,5 +10,9 @@ const brainDumpController = require('../controllers/braindump-controller');
 //  /delete/:id --> delete module
 
 router.post("/newBrainDump", brainDumpController.newBrainDump);
+router.get("/getBraindump/:id", brainDumpController.getBrainDump);
+router.put("/editTitle/:id", brainDumpController.editTitle);
+router.put("/editText/:id", brainDumpController.editText);
+router.delete("/delete/:id", brainDumpController.deleteBrainDump);
 
 module.exports = router;

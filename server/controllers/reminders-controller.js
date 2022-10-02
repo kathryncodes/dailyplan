@@ -1,3 +1,5 @@
+//OMIT REMINDERS FOR MVP
+
 const reminders = require('../models/reminders-model');
 //const moduleCollection = require('../models/modules');
 

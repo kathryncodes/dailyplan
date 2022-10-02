@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const moduleSchema = require('./modules');
+const { v4: uuidv4 } = require('uuid');
 
 const itemSchema = new mongoose.Schema({
     text:{
         type: String
-        //required: true
     },
     priority:{
         type: String,
@@ -15,27 +16,20 @@ const itemSchema = new mongoose.Schema({
     completed:{
         type: Boolean,
         default: false
+    },
+    id:{
+        type: uuidv4()
     }
 })
 
-const TodoSchema = new mongoose.Schema({
+const TodoSchema =  new mongoose.Schema({
     title:{
         type: String, 
-        //required: true, 
         default: "To Do"
     },
     items: [itemSchema]
-    
 })
 
-// const TodoSchema = moduleSchema.discriminator("todo", new mongoose.Schema({
-//     title:{
-//         type: String, 
-//         required: true, 
-//         default: "To Do"
-//     },
-//     items: [itemSchema]
-// }))
 
-
-module.exports = mongoose.model('todoList', TodoSchema );
+module.exports = mongoose.model('todoListModel', TodoSchema );
+module.exports = moduleSchema.discriminator('todo', TodoSchema)

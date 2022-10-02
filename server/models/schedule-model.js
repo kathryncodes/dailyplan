@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-//const moduleSchema = require('./modules')
+const moduleSchema = require('./modules');
+const { v4: uuidv4 } = require('uuid');
 
 const block = new mongoose.Schema({
     startTime:{
@@ -13,13 +14,16 @@ const block = new mongoose.Schema({
     text:{
         type: String
     },
+   id:{
+    type: uuidv4()
+   },
     upcoming:{
         type: Boolean, 
         default: true
     }
 });
 
-const scheduleSchema = new mongoose.Schema({
+const scheduleSchema =  new mongoose.Schema({
 
     title: {
         type: String,
@@ -29,4 +33,5 @@ const scheduleSchema = new mongoose.Schema({
     blocks: [block]
 })
 
-module.exports = mongoose.model('schedule', scheduleSchema);
+module.exports = mongoose.model('scheduleModel', scheduleSchema);
+module.exports = moduleSchema.discriminator('schedule', scheduleSchema);

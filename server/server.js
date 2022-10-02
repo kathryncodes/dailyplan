@@ -12,6 +12,9 @@ const flash = require('express-flash');
 const logger = require('morgan');
 const connectDB = require("./config/database");
 
+//debug empty post request
+const bodyParser = require('body-parser')
+
 //import routes
 const mainRoutes = require('./routes/main');
 const dashboardRoutes = require('./routes/dashboard-routes');
@@ -35,8 +38,8 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 // //Body Parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // //Logging
 app.use(logger("dev"));

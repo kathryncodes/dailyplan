@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.2",
     "ejs": "^3.1.8",
@@ -15,11 +16,13 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "router": "^1.3.7",
+    "uuid": "^9.0.0",
     "validator": "^13.7.0"
   },
   "scripts": {
     "start": "node server.js"
   },
+  "proxy": "http://localhost:2121",
   "name": "dailyplan",
   "description": "10/09/22:  - created folder structure - imported dependencies (same as Leon's) and required them in server - models schemas for modules",
   "version": "1.0.0",

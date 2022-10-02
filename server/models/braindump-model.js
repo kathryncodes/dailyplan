@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-//const moduleSchema = require('./modules');
+const moduleSchema = require('./modules');
 
 const braindumpSchema = new mongoose.Schema({
     title:{
@@ -7,8 +7,8 @@ const braindumpSchema = new mongoose.Schema({
         default: "Brain Dump"
     },
     text:{
-        type: String
-        // required: true
+        type: String,
+        default: ""
     },
     date: {
         type: Date,
@@ -16,19 +16,5 @@ const braindumpSchema = new mongoose.Schema({
     }
 })
 
-// const braindumpSchema = moduleSchema.discriminator("braindump", new mongoose.Schema({
-//     title:{
-//         type:String,
-//         default: "Brain Dump"
-//     },
-//     text:{
-//         type: String,
-//         required: true
-//     },
-//     date: {
-//         type: Date,
-//         default: new Date()
-//     }
-// }))
-
-module.exports = mongoose.model('braindump', braindumpSchema);
+module.exports = mongoose.model('braindumpModel', braindumpSchema);
+module.exports = moduleSchema.discriminator('braindump', braindumpSchema);

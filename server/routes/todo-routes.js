@@ -4,6 +4,18 @@ const todoController = require('../controllers/todo-controller');
 
 //also add auth
 
+router.post("/newList", todoController.newList)
+
+router.get("/getList/:id", todoController.getList)
+
+router.put("/addItem/:id", todoController.addItem) 
+
+router.put("/checkItem/:id", todoController.checkItem)
+
+router.delete("/deleteItem/:id", todoController.deleteItem)
+
+router.delete("/deleteList/:id", todoController.deleteList)
+
 //ROUTES
     //      /addList --> new instance of module
 
