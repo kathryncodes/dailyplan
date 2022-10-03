@@ -18,7 +18,7 @@ function App() {
         <Route path="/signup" element={ <SignupComponent />} />
         <Route path="/login" element={ <LoginComponent />} />
         {/* Direct to Dashboard Component (with dashboard routes & Modules routes defined there) */}
-        <Route path="/dashboard" element={ <Dashboard /> }/>
+        <Route path="/dashboard/*" element={ <Dashboard /> }/>
 
       </Routes>
     </div>

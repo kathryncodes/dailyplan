@@ -1,8 +1,8 @@
-import React from 'react';
-import { TrashIcon } from '@heroicons/react/24/solid'
+import React, { useState } from 'react';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
-const BraindumpComponent = (props) => {
-    
+const BraindumpComponent = ( { braindump }) => {
+
     //get ObjectId for braindump from database
     // const id = ""
 
@@ -35,16 +35,16 @@ const BraindumpComponent = (props) => {
     }
 
     return(
-        <div className="h-full border-4 border-base rounded-2xl overflow-y-hidden" name="braindump" id={props.id}>
+        <div className="h-full border-4 border-base rounded-2xl overflow-y-hidden" name="braindump" >
             <div className="topRow flex justify-between items-center w-full px-2">
                 <span></span>
-                <input name="braindumpTitle" type="text" aria-label="Braindump Title" placeholder="Brain Drump" className="input input-ghost" />
+                <input name="braindumpTitle" type="text" aria-label="Braindump Title" value={braindump.title} placeholder="jkljklspd" className="input input-ghost"></input>
                     <button className="deleteModuleBtn">
                         <TrashIcon className="h-6 w-6"/>
                     </button>
             </div>
             <div className="h-full">
-                <textarea name="braindumpText" className="input input-ghost h-full w-full font-bold" style={textAreaStyles}></textarea> {/*Make whole div into a stylized text box --> use textarea tags instead of input?*/}
+                <textarea name="braindumpText" className="input input-ghost h-full w-full font-bold"  value={braindump.text} style={textAreaStyles}></textarea> {/*Make whole div into a stylized text box --> use textarea tags instead of input?*/}
             </div>
         </div>
     )

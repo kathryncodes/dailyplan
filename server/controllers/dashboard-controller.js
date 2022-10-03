@@ -1,9 +1,16 @@
 const modules = require('../models/modules')
 
 module.exports = {
-    getDashboard: (req, res) => {
-        // find all modules and render to dashboard?
-        res.render("index.ejs");
+    getDashboard: async (req, res) => {
+        try{
+            const modulesArray = await modules.find();
+            // console.log(modulesArray);
+            res.send(modulesArray);
+        }
+        catch(err){
+            console.log(err)
+        }
+        
     }
 };
 

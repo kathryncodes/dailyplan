@@ -1,7 +1,7 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid'
 //import uuidv4
 
-const TodoComponent = (props) => {
+const TodoComponent = (todo) => {
 
     //get itemText from backend & create array
     //deleteItem handler

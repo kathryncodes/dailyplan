@@ -1,7 +1,7 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid';
 import { openModal } from 'react-url-modal';
 
-const ScheduleComponent = () => {
+const ScheduleComponent = (schedule) => {
 
 function handleOpen(){
     openModal({
@@ -27,7 +27,7 @@ function handleOpen(){
         <div className="border-4 border-base rounded-2xl h-full row-span-2 overflow-y-hidden">
             <div className="topRow h-12 flex items-center justify-between   border-b border-base">
                 <div>
-                    <input type="text" name="scheduleTitle" aria-label="Schedule Title" placeholder="Today's Plan" className="input input-ghost"></input>
+                    <input type="text" name="scheduleTitle" aria-label="Schedule Title" placeholder="Today's Plan" className="input input-ghost">{schedule.title}</input>
                 </div> {/* Module title */}
                 <div className="flex items-center justify-end px-3"> {/* edit and delete buttons - should they be their own module? */}
                     <button onClick={handleOpen}>

@@ -11,6 +11,7 @@ const methodOverride = require('method-override');
 const flash = require('express-flash');
 const logger = require('morgan');
 const connectDB = require("./config/database");
+const cors = require('cors')
 
 //debug empty post request
 const bodyParser = require('body-parser')
@@ -41,6 +42,9 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//json
+app.use(express.json())
+
 // //Logging
 app.use(logger("dev"));
 
@@ -56,6 +60,14 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   })
 );
+
+//Setup CORS
+app.use(cors({
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+}))
 
 // // Passport middleware
 app.use(passport.initialize());

@@ -18,7 +18,8 @@ const itemSchema = new mongoose.Schema({
         default: false
     },
     id:{
-        type: uuidv4()
+        type: String,
+        default: uuidv4
     }
 })
 
