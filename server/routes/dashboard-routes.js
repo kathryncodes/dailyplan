@@ -9,7 +9,7 @@ const brainDumpRoutes = require('./braindump-routes');
 const toDoRoutes = require('./todo-routes');
 
 // load Dashboard page
-router.get("/getDashboard", dashboardController.getDashboard);
+router.get("/", dashboardController.getDashboard);
 
 // //define paths to module routes
 // router.use("/schedule", ensureAuth , scheduleRoutes);

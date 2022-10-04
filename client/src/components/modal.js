@@ -1,10 +1,11 @@
-import { Modal } from 'react-url-modal/dist/Modal';
+import { Modal} from 'react-url-modal/dist/Modal';
 
 export const MyModal = (props) => {
 
     return(
         <Modal {...props} className="modal h-2/4">
             <div className="" >
+
             <form className='' action="/schedule/addBlock">
                 <input type="text" name="task" aria-label="task" placeholder="Task" className="input input-ghost w-full mb-6" />
                 <div className='text-black'>
@@ -17,22 +18,12 @@ export const MyModal = (props) => {
                         </select>
                 </div>
                 <button type="submit" className="btn btn-primary mt-6">Add Task</button>
-                </form>
+                </form> 
             </div>
          </Modal>
     )
    
   };
-
-
-// //  const Modal = () => {
-
-// //     return(
-//         <div className="">
-//             {/* {modalToRender === "AddBlock" && <AddTimeBlock />} */}
-//         </div>
-// //     )
-// // }
 
 const AddTimeBlock = () => {
     

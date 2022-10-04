@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const moduleSchema = require('./modules');
 const { v4: uuidv4 } = require('uuid');
-var UUID = mongoose.Types.UUID;
 
 const block = new mongoose.Schema({
     startTime:{

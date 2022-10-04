@@ -15,9 +15,9 @@ module.exports = {
     },
     newList : async (req, res) => {
         try{
-            //create new list in db
-            //render empty list on page
-            const list = await modules.create({}) 
+             await modules.create({
+                moduleType: req.body.moduleType
+            }) 
         }
         catch(err){
             console.log(err)
@@ -26,10 +26,10 @@ module.exports = {
     },
     addItem: async(req, res) => {
         try{
+            
             //get the list by id (in case of multiple lists on page)
             //push an item to the items array
             //render updated list on dashboard
-
             const list = await modules.findOneAndUpdate({_id: req.params.id}, {
                 $push: {
                     items : {

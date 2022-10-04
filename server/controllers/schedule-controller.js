@@ -9,9 +9,14 @@ module.exports = {
     }, 
     newSchedule : async (req, res) => {
         //create new empty schedule
-        const newSchedule = await modules.create({
-            moduleType: "schedule"
+    try{
+        await modules.create({
+            moduleType: req.body.moduleType
         })
+    } 
+    catch(err){
+        console.log(err)
+    }  
         //render to dashboard
     },
     addBlock : async (req, res) => {

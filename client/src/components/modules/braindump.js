@@ -38,13 +38,13 @@ const BraindumpComponent = ( { braindump }) => {
         <div className="h-full border-4 border-base rounded-2xl overflow-y-hidden" name="braindump" >
             <div className="topRow flex justify-between items-center w-full px-2">
                 <span></span>
-                <input name="braindumpTitle" type="text" aria-label="Braindump Title" value={braindump.title} placeholder="jkljklspd" className="input input-ghost"></input>
+                <input name="braindumpTitle" type="text" aria-label="Braindump Title" defaultValue={braindump.title} placeholder="jkljklspd" className="input input-ghost"></input>
                     <button className="deleteModuleBtn">
                         <TrashIcon className="h-6 w-6"/>
                     </button>
             </div>
             <div className="h-full">
-                <textarea name="braindumpText" className="input input-ghost h-full w-full font-bold"  value={braindump.text} style={textAreaStyles}></textarea> {/*Make whole div into a stylized text box --> use textarea tags instead of input?*/}
+                <textarea name="braindumpText" className="input input-ghost h-full w-full font-bold"  defaultValue={braindump.text} style={textAreaStyles}></textarea> {/*Make whole div into a stylized text box --> use textarea tags instead of input?*/}
             </div>
         </div>
     )

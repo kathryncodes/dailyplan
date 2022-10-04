@@ -10,12 +10,9 @@ module.exports = {
     newBrainDump : async(req, res) => {
         try{
             await modules.create({
-                moduleType: "braindump",
-                text: req.body.text
-            }) //create blank braindump
-            console.log(req.body)
-            res.redirect("/")
-            //redirect to updated dashboard with empty braindump module
+                moduleType : req.body.moduleType
+            })
+            req.reload('/dashboard')
         }
         catch(err){
             console.log(err)

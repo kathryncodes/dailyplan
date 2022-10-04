@@ -6,12 +6,11 @@ const ScheduleComponent = (schedule) => {
 function handleOpen(){
     openModal({
         name: 'myModal',
-        props: {
-          modalType: "AddBlock",
-        },
+        // props: {
+        //   modalType: "AddBlock",
+        // }
       })
 }
-
 
     const draggableStyle = {
         backgroundColor: "#bfbfd5",
@@ -24,8 +23,8 @@ function handleOpen(){
     }
 
     return(
-        <div className="border-4 border-base rounded-2xl h-full row-span-2 overflow-y-hidden">
-            <div className="topRow h-12 flex items-center justify-between   border-b border-base">
+        <div className="border-4 border-base rounded-2xl row-start-1 row-span-2 col-span-1 h-full overflow-y-hidden">
+            <div className="topRow h-12 flex items-center justify-between  border-b border-base">
                 <div>
                     <input type="text" name="scheduleTitle" aria-label="Schedule Title" placeholder="Today's Plan" className="input input-ghost">{schedule.title}</input>
                 </div> {/* Module title */}

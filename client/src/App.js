@@ -11,7 +11,7 @@ import React from 'react';
 function App() {
 
   return (
-    <div className="App h-screen">
+    <div className="App h-screen overflow-y-hidden w-screen">
       <Routes>
         {/* Direct to Home Page (define login/logout/signup routes in home component?) */}
         <Route path="/" element={ <HomePage /> } />

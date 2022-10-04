@@ -17,7 +17,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 
 //import routes
-const mainRoutes = require('./routes/main');
+//const mainRoutes = require('./routes/main');
 const dashboardRoutes = require('./routes/dashboard-routes');
 const braindumpRoutes = require('./routes/braindump-routes')
 const scheduleRoutes = require('./routes/schedule-routes');
@@ -77,7 +77,7 @@ app.use(passport.session());
 app.use(flash());
 
 //assign routes
-app.use("/", mainRoutes);
+//app.use("/", mainRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/braindump", braindumpRoutes);
 app.use("/schedule", scheduleRoutes);
