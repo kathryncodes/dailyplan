@@ -4,28 +4,28 @@ import TodoComponent from '../components/modules/todo';
 import { URLModal } from 'react-url-modal';
 import React from 'react';
 import { MyModal } from '../components/modal';
-import { useEffect, useState } from 'react'
+import { useEffect, useContext } from 'react'
 import Sidebar from '../components/sidebar';
+import { ModulesContext } from '../context/modulesContext';
 
 const Dashboard = () => {
-    
-   const [modulesArray, setModulesArray] = useState([])
 
-   const getModules = async() => {
-        const response = await fetch('http://localhost:2121/dashboard/')
-        const json = await response.json();
-
-        if(response.ok){
-            setModulesArray(modulesArray.concat(json))
-            console.log(json)
-        }
-
-   }
-
+    const {modules, dispatch} = useContext(ModulesContext);
+  
     useEffect(() => {
-         getModules()
-    }, [])
+        const getModules = async() => {
+            const response = await fetch('http://localhost:2121/dashboard/')
+            const json = await response.json();
 
+            if(response.ok){
+                console.log(json)
+                dispatch({type: 'GET_MODULES', payload: json})
+            }
+
+    }
+    getModules() 
+   }, [dispatch])
+    
     return(
         <div >
              <URLModal
@@ -42,17 +42,15 @@ const Dashboard = () => {
 
                 {/* Dashboard with Modules */}
 
-                    {modulesArray && modulesArray.map( module => (
-                        module.moduleType === 'schedule' ? <ScheduleComponent key={module._id} schedule={module}/>
+                    {modules && modules.map( module => (
+                        module.moduleType === 'schedule' ? <ScheduleComponent key={module._id} schedule={module} moduleID={module._id}/>
                         :
-                        module.moduleType === 'braindump' ? <BraindumpComponent  key={module._id} braindump={module} />
+                        module.moduleType === 'braindump' ? <BraindumpComponent  key={module._id} braindump={module} moduleID={module._id}/>
                         :
-                        module.moduleType === 'todo' ? <TodoComponent key={module._id} todo={module} />
+                        module.moduleType === 'todo' ? <TodoComponent key={module._id} todo={module} moduleID={module._id} />
                         :
-                        <p>None of this worked lol</p>
-                    ))}
-
-        
+                        null
+                    ))}  
         </div>
     
     </div>

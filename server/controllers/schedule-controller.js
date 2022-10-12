@@ -21,14 +21,20 @@ module.exports = {
     },
     addBlock : async (req, res) => {
         //find schedule by id 
-        const schedule = await modules.findOneAndUpdate({_id: req.params.id}, {
-            $push: {
-                blocks: {
-                    task: "", 
-                    duration: ""
+    try{
+        const schedule = await modules.updateOne({_id: req.params.moduleID}, {
+                $push : {
+                    blocks : {
+                        task: req.body.task,
+                        duration: req.body.duration
+                    }
                 }
             }
-        })
+        )
+    }
+    catch(err){
+        console.log(err)
+    }
         //push new block to blocks array
     },
     deleteBlock : async (req, res) => {

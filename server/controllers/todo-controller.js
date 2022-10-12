@@ -1,11 +1,11 @@
 const todoListModel = require('../models/todo-model');
-const modules = require('../models/modules')
+const modules = require('../models/modules');
 
 module.exports = {
     getList: async (req, res) => {
         //find the list by id and render to dashboard
         try{
-            const list = await modules.findById(req.params.id);
+            const list = await modules.findById(req.params.moduleID);
             //render list to dashboard 
 
         }
@@ -27,10 +27,7 @@ module.exports = {
     addItem: async(req, res) => {
         try{
             
-            //get the list by id (in case of multiple lists on page)
-            //push an item to the items array
-            //render updated list on dashboard
-            const list = await modules.findOneAndUpdate({_id: req.params.id}, {
+            const list = await modules.findOneAndUpdate({_id: req.params.moduleID}, {
                 $push: {
                     items : {
                         'text' : req.body.text ,
@@ -74,6 +71,9 @@ module.exports = {
     },
     deleteList: async (req, res) => {
         try{
+            await modules.findOneAndDelete({_id: req.params.moduleID})
+            console.log("Deleted list!")
+            res.json('list deleted')
             //find the list by id and delete 
             // findOneAndDelete(req.params.id)
             //render updated dashboard

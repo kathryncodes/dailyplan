@@ -1,29 +1,43 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid'
-//import uuidv4
+import { openModal } from 'react-url-modal';
 
 const TodoComponent = (todo) => {
 
-    //get itemText from backend & create array
-    //deleteItem handler
-    //delete list handler
-    //add item handler
+    
+    function handleOpen(){
+        openModal({
+            name: 'myModal',
+            params: {
+              modalType: "AddTodoItem",
+              moduleID : todo.moduleID
+            }
+          })
+    }
+    
+    const moduleID = todo.moduleID
 
-    //items array max length = 7
+    const handleDelete = async() => {
+        const response = await fetch(`http://localhost:2121/todo/deleteList/${moduleID}`, {
+            method: 'DELETE'
+        })
 
-//add UUID in item model, pass that through props, then set key to UUID
+        const data = await response.json()
 
+        if(response.ok){
+            console.log(data)
+        }
+    }
 
-    //map over items array and
 
     return(
         <div className="border-4 border-base col-span-1 row-span-1 rounded-2xl">
             <div className="topRow flex justify-between px-5 items-center border-b border-base">
                 <input type="text" className="input input-ghost" aria-label="ToDo List" placeholder="Things to do" />
                 <div className="flex items-center">
-                <button className="addBTodoBtn modal-button">
+                <button onClick={handleOpen}>
                         <PlusCircleIcon className="h-6 w-6 mx-1"/>
-                    </button> {/* add icons for both, set routes */}
-                    <button className="deleteModuleBtn">
+                </button> {/* add icons for both, set routes */}
+                    <button className="deleteModuleBtn" onClick={handleDelete}>
                         <TrashIcon className="h-6 w-6"/>
                     </button>
                 </div>
@@ -31,7 +45,7 @@ const TodoComponent = (todo) => {
             <div className="listArea rounded-b-lg h-full">
                 {/* map over items array and render a TodoItem component for each, pass in props of itemText and key */}
                 <TodoItem text="Get Groceries askdbnahsd"/>
-                <TodoItem text="Get Drycleaning"/>
+                <TodoItem text=""/>
                 <TodoItem text="Get Drycleaning"/>
                 <TodoItem text="Get Drycleaning"/>
                 <TodoItem text="Get Drycleaning"/>

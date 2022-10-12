@@ -6,10 +6,12 @@ const ScheduleComponent = (schedule) => {
 function handleOpen(){
     openModal({
         name: 'myModal',
-        // props: {
-        //   modalType: "AddBlock",
-        // }
+        params: {
+          modalType: "AddBlock",
+          moduleID : schedule.moduleID
+        }
       })
+      console.log(schedule.moduleID)
 }
 
     const draggableStyle = {
