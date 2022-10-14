@@ -1,19 +1,36 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid'
-import { openModal } from 'react-url-modal';
+import { MyModal } from '../modal';
+import { useState } from 'react';
+import ReactModal from 'react-modal'
+ReactModal.setAppElement('body')
 
 const TodoComponent = (todo) => {
 
     
+    const [isOpen, setIsOpen] = useState(false)
+
     function handleOpen(){
-        openModal({
-            name: 'myModal',
-            params: {
-              modalType: "AddTodoItem",
-              moduleID : todo.moduleID
-            }
-          })
+        setIsOpen(true);
+        console.log(todo.moduleID)
     }
     
+    function handleClose(){
+        setIsOpen(false)
+    }
+
+    const modalStyle = {
+        content: {
+            width: "40vw",
+            margin: "auto",
+            height: "min-content",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "2rem"
+        }
+    }
+
     const moduleID = todo.moduleID
 
     const handleDelete = async() => {
@@ -34,8 +51,8 @@ const TodoComponent = (todo) => {
             <div className="topRow flex justify-between px-5 items-center border-b border-base">
                 <input type="text" className="input input-ghost" aria-label="ToDo List" placeholder="Things to do" />
                 <div className="flex items-center">
-                <button onClick={handleOpen}>
-                        <PlusCircleIcon className="h-6 w-6 mx-1"/>
+                <button >
+                        <PlusCircleIcon className="h-6 w-6 mx-1" onClick={handleOpen}/>
                 </button> {/* add icons for both, set routes */}
                     <button className="deleteModuleBtn" onClick={handleDelete}>
                         <TrashIcon className="h-6 w-6"/>
@@ -53,6 +70,10 @@ const TodoComponent = (todo) => {
                 <TodoItem text="Get Drycleaning"/>
                 {/* map over items array and generate ToDoItem component for each one */}
             </div>
+            <ReactModal isOpen={isOpen} style={modalStyle} >
+                <MyModal moduleID={todo.moduleID} modalType="AddTodoItem"/>
+                <button onClick={handleClose} className="btn btn-primary">Close</button>
+            </ReactModal>
         </div>
     )
 }

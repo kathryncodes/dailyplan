@@ -1,26 +1,31 @@
-import { Modal} from 'react-url-modal/dist/Modal';
-import { useContext } from 'react';
-import { ModulesContext } from '../context/modulesContext';
+import React from "react";
 
-export const MyModal = ({params}) => {
+export const MyModal = (props) => {
+
+
+
     return(
-        <Modal {...params} className="modal h-2/4">
-            <div>
-                {params.modalType === 'AddBlock' && <AddTimeBlock props={params}/>}
-                {params.modalType === 'AddTodoItem' && <AddTodoItem props={params}/>}
+        <div className="flex flex-col">
+            <div > 
+                    <div className="">
+                        {props.modalType === 'AddBlock' && <AddTimeBlock moduleID={props.moduleID}/>}
+                        {props.modalType === 'AddTodoItem' && <AddTodoItem moduleID={props.moduleID}/>}
+                    </div>
             </div>
-        </Modal>
+        </div>
     )
    
   };
 
-const AddTimeBlock = ({props}) => {
+
+const AddTimeBlock = (props) => {
 
     const moduleID = props.moduleID
 
     const handleAddBlock = async() => {
 
-        const response = await fetch(`http://localhost:2121/schedule/addBlock/${moduleID}` , {
+        console.log("click")
+        const response = await fetch(`/schedule/addBlock/${moduleID}` , {
             method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
@@ -39,23 +44,23 @@ const AddTimeBlock = ({props}) => {
     }
     
     return(
-            <div>
-                <input type="text" name="task" aria-label="task" placeholder="Task" className="input input-ghost" />
-                <div>
+            <div className="flex flex-col items-center justify-center gap-4 w-full">
+                <input type="text" name="task" aria-label="task" placeholder="Task" className="input input-ghost w-full" />
+                <div className="flex gap-2 items-center w-full">
                     Duration:
-                        <input type="number" name="hours" aria-label='house' placeholder="Hours" />
-                        <select name="minutes" aria-label='minutes'>
+                        <input type="number" name="hours" aria-label='house' placeholder="Hours" className="input input-ghost w-28"/>
+                        <select name="minutes" aria-label='minutes' className="input input-ghost w-full">
                             <option value={15}>15 minutes</option>
                             <option value={30}>30 minutes</option>
                             <option value={45}>45 minutes</option>
                         </select>
                 </div>
-                <button className='btn btn-primary' onClick={handleAddBlock}>Add Time Block</button>
+                <button className='btn btn-primary mt-6' onClick={handleAddBlock}>Add Time Block</button>
             </div>
     )
 }
 
-const AddTodoItem = ({props}) => {
+const AddTodoItem = (props) => {
 
     const moduleID = props.moduleID
 
@@ -80,16 +85,16 @@ const AddTodoItem = ({props}) => {
 
 
     return(
-        <div>
-            <input type="text" name="todoItem" aria-label="Todo Item" placeholder="Add Todo Item" className="input input-ghost" />
-            <div>
-                <select name="priority" aria-label="Item Priority">
+        <div className="flex flex-col items-center justify-center gap-4 w-full">
+            <input type="text" name="todoItem" aria-label="Todo Item" placeholder="Add Todo Item" className="input input-ghost w-full" />
+            <div className="flex gap-2 items-center w-full">
+                <select name="priority" aria-label="Item Priority" className="input input-ghost">
                     <option value="low">Low Priority</option>
                     <option value="high">High Priority</option>
                 </select>
-                <input type="date" name="dueDate" />
+                <input type="date" name="dueDate" className="input input-ghost"/>
             </div>
-            <button className='btn btn-primary' onClick={handleAddItem}>Add Item</button>
+            <button className='btn btn-primary mt-6' onClick={handleAddItem}>Add Item</button>
         </div>
     )
 

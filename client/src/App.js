@@ -4,7 +4,6 @@ import  HomePage  from './pages/home';
 import  Dashboard  from './pages/dashboard'
 import SignupComponent from './components/signup';
 import LoginComponent from './components/login';
-import { URLModal } from 'react-url-modal';
 import React from 'react';
 
 

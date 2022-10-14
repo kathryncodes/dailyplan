@@ -1,17 +1,21 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid';
-import { openModal } from 'react-url-modal';
+import { MyModal } from '../modal';
+import { useState } from 'react';
+import ReactModal from 'react-modal'
+
+ReactModal.setAppElement('body')
 
 const ScheduleComponent = (schedule) => {
 
+const [isOpen, setIsOpen] = useState(false)
+
 function handleOpen(){
-    openModal({
-        name: 'myModal',
-        params: {
-          modalType: "AddBlock",
-          moduleID : schedule.moduleID
-        }
-      })
-      console.log(schedule.moduleID)
+    setIsOpen(true);
+    console.log(schedule.moduleID)
+}
+
+function handleClose(){
+    setIsOpen(false)
 }
 
     const draggableStyle = {
@@ -24,6 +28,19 @@ function handleOpen(){
         color: "transparent"
     }
 
+    const modalStyle = {
+        content: {
+            width: "40vw",
+            margin: "auto",
+            height: "min-content",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "2rem"
+        }
+    }
+
     return(
         <div className="border-4 border-base rounded-2xl row-start-1 row-span-2 col-span-1 h-full overflow-y-hidden">
             <div className="topRow h-12 flex items-center justify-between  border-b border-base">
@@ -31,7 +48,7 @@ function handleOpen(){
                     <input type="text" name="scheduleTitle" aria-label="Schedule Title" placeholder="Today's Plan" className="input input-ghost">{schedule.title}</input>
                 </div> {/* Module title */}
                 <div className="flex items-center justify-end px-3"> {/* edit and delete buttons - should they be their own module? */}
-                    <button onClick={handleOpen}>
+                    <button onClick={handleOpen} className="">
                         <PlusCircleIcon className="h-6 w-6 mx-1" />
                     </button> {/* add icons for both, set routes */}
                     <button className="deleteModuleBtn">
@@ -65,8 +82,11 @@ function handleOpen(){
                 <div className=" w-full m-0 p-0 " style={draggableStyle}>This is the second column</div>
                 {/* need a div for times (rows? 1x1 table?) */}
                 {/* another div for droppable area for blocks --> same height as times, width to fill module */}
-
             </div> 
+            <ReactModal isOpen={isOpen} style={modalStyle} >
+                <MyModal moduleID={schedule.moduleID} modalType="AddBlock"/>
+                <button onClick={handleClose} className="btn btn-primary">Close</button>
+            </ReactModal>
         </div>
     )
 }
