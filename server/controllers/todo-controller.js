@@ -37,7 +37,9 @@ module.exports = {
                     }
                 }
             })
-            
+            console.log(list)
+            console.log("Logging from Server Side!")
+            res.json(list)
             
         }
         catch(err){

@@ -3,7 +3,6 @@ import React from "react";
 export const MyModal = (props) => {
 
 
-
     return(
         <div className="flex flex-col">
             <div > 
@@ -66,7 +65,7 @@ const AddTodoItem = (props) => {
 
     const handleAddItem = async() => {
        
-        const response = await fetch(`http://localhost:2121/todo/addItem/${moduleID}`, {
+        const response = await fetch(`/todo/addItem/${moduleID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json'

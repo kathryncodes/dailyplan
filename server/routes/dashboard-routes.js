@@ -12,8 +12,8 @@ const toDoRoutes = require('./todo-routes');
 router.get("/", dashboardController.getDashboard);
 
 // //define paths to module routes
-// router.use("/schedule", ensureAuth , scheduleRoutes);
-// router.use("/braindump", ensureAuth, brainDumpRoutes);
-// router.use("/todo", ensureAuth,  toDoRoutes);
+// router.use("/schedule",  scheduleRoutes);
+// router.use("/braindump",  brainDumpRoutes);
+// router.use("/todo",  toDoRoutes);
 
 module.exports = router;

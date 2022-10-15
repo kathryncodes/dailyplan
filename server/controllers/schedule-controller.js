@@ -31,6 +31,8 @@ module.exports = {
                 }
             }
         )
+        console.log(schedule._id)
+        res.json(schedule)
     }
     catch(err){
         console.log(err)

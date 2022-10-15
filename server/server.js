@@ -16,6 +16,17 @@ const cors = require('cors')
 //debug empty post request
 const bodyParser = require('body-parser')
 
+//Setup CORS
+app.use(cors({
+  origin: true
+}))
+
+// origin: "*",
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   allowedHeaders: ['Content-Type'],
+//   credentials: true
+
+
 //import routes
 //const mainRoutes = require('./routes/main');
 const dashboardRoutes = require('./routes/dashboard-routes');
@@ -61,13 +72,6 @@ app.use(
   })
 );
 
-//Setup CORS
-app.use(cors({
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  allowedHeaders: ['Content-Type'],
-  credentials: true
-}))
 
 // // Passport middleware
 app.use(passport.initialize());

@@ -2,7 +2,6 @@ import BraindumpComponent from '../components/modules/braindump';
 import ScheduleComponent from '../components/modules/schedule';
 import TodoComponent from '../components/modules/todo';
 import React from 'react';
-import { MyModal } from '../components/modal';
 import { useEffect, useContext } from 'react'
 import Sidebar from '../components/sidebar';
 import { ModulesContext } from '../context/modulesContext';
@@ -13,7 +12,7 @@ const Dashboard = () => {
   
     useEffect(() => {
         const getModules = async() => {
-            const response = await fetch('http://localhost:2121/dashboard/')
+            const response = await fetch('/dashboard/')
             const json = await response.json();
 
             if(response.ok){

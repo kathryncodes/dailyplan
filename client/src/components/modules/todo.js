@@ -34,7 +34,7 @@ const TodoComponent = (todo) => {
     const moduleID = todo.moduleID
 
     const handleDelete = async() => {
-        const response = await fetch(`http://localhost:2121/todo/deleteList/${moduleID}`, {
+        const response = await fetch(`/todo/deleteList/${moduleID}`, {
             method: 'DELETE'
         })
 
