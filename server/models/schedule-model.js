@@ -16,11 +16,7 @@ const block = new mongoose.Schema({
    id:{
     type: String,
     default: uuidv4
-   },
-    upcoming:{
-        type: Boolean, 
-        default: true
-    }
+   }
 });
 
 const scheduleSchema =  new mongoose.Schema({

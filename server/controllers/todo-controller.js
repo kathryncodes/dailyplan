@@ -1,4 +1,4 @@
-const { listenerCount } = require('../models/modules');
+const todoListModel = require('../models/todo-model')
 const modules = require('../models/modules');
 
 module.exports = {
@@ -36,19 +36,14 @@ module.exports = {
 
 
         try{  
-            const list = await modules.findOneAndUpdate(
-                {_id: req.params.id}, //this is finding the right list
-
-                { $push : {
-                    "items" : newItem
-                  }} //this should push newItem to the items array but it's not working
-
-            ) 
+            const list = await modules.findOne({_id: req.params.id}) 
+            list.items.push(newItem) //this works but isn't using Mongo operators??
+            list.save()
             
-            console.log(newItem) //this returns the right item
-            console.log(list) //this returns the correct list
-            console.log(typeof list) //this says it's an object
-            console.log(`This should be the items array, using list.items  ${list.items}`) //this returns undefined
+            console.log(newItem) 
+            console.log("list: ")
+            console.log(list) 
+           
             res.json(list) 
         }
         catch(err){
@@ -61,7 +56,7 @@ module.exports = {
   
             //const todoItem = await list.items.findById({}) ???
             
-            //set the value for completed to false
+            //set the value for completed to true
             //render updated list on dashboard (style changes for checkbox)
         }
         catch(err){
@@ -71,7 +66,9 @@ module.exports = {
     },
     deleteItem: async(req, res) => {
         try{
-          const list = await modules.findById({_id: req.params.listID})
+          const list = await modules.findOne({_id: req.params.listID})
+          list.items.pull({_id: req.params.itemID})
+          list.save()
           console.log(list)
           console.log(list.items)
           res.json(list)

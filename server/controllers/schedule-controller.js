@@ -33,10 +33,16 @@ module.exports = {
         }
 
     try{
-        const schedule = await modules.findById({_id: req.params.id})
-        schedule.blocks.push(newBlock)
-        schedule.save()
+        const schedule = await modules.find({_id: req.params.id})
+        
+
+        console.log(typeof schedule)
+        console.log(schedule.blocks)
+        // console.log(schedule.blocks)
+        // console.log(newBlock)
+        console.log(schedule)
         res.json(schedule)
+
     }
     catch(err){
         console.log(err)
@@ -46,9 +52,8 @@ module.exports = {
     deleteBlock : async (req, res) => {
 
         try{
-            const schedule = await modules.findById({_id: req.params.scheduleID});
-            const block = schedule.blocks.indexOf({_id: req.params.blockID})
-            schedule.blocks.splice(block, 1)
+            const schedule = await modules.findOne({_id: req.params.scheduleID});
+            schedule.blocks.pull({_id: req.params.blockID})
             schedule.save()
             console.log("block should have been deleted")
             console.log(schedule.blocks)  
