@@ -33,14 +33,12 @@ module.exports = {
         }
 
     try{
-        const schedule = await modules.find({_id: req.params.id})
+        const schedule = await modules.findOne({_id: req.params.id})
         
-
-        console.log(typeof schedule)
-        console.log(schedule.blocks)
-        // console.log(schedule.blocks)
-        // console.log(newBlock)
-        console.log(schedule)
+        console.log(typeof schedule) // returns object
+        console.log(schedule._doc.blocks) //returns the blocks array
+        console.log(schedule.blocks) // returns undefined
+        console.log(newBlock) 
         res.json(schedule)
 
     }
