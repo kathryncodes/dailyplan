@@ -1,3 +1,4 @@
+const scheduleModel = require('../models/schedule-model')
 const modules = require('../models/modules')
 
 module.exports = {
@@ -34,11 +35,10 @@ module.exports = {
 
     try{
         const schedule = await modules.findOne({_id: req.params.id})
-        
-        console.log(typeof schedule) // returns object
-        console.log(schedule._doc.blocks) //returns the blocks array
-        console.log(schedule.blocks) // returns undefined
-        console.log(newBlock) 
+        schedule.blocks.push(newBlock)
+        schedule.save()
+       
+        console.log(schedule)
         res.json(schedule)
 
     }
