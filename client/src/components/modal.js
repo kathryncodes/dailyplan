@@ -1,57 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 
 export const MyModal = (props) => {
 
+    const handleClose = props.handleClose
 
     return(
-        <div className="flex flex-col">
-            <div > 
-                    <div className="">
-                        {props.modalType === 'AddBlock' && <AddTimeBlock moduleID={props.moduleID}/>}
-                        {props.modalType === 'AddTodoItem' && <AddTodoItem moduleID={props.moduleID}/>}
-                    </div>
+            <div className="flex flex-col">
+                <div > 
+                        <div className="">
+                            {props.modalType === 'AddBlock' && <AddTimeBlock moduleID={props.moduleID} handleClose={handleClose}/>}
+                            {props.modalType === 'AddTodoItem' && <AddTodoItem moduleID={props.moduleID} handleClose={handleClose}/>}
+                        </div>
+                </div>
             </div>
-        </div>
     )
    
   };
 
 
-const AddTimeBlock = (props) => {
+const AddTimeBlock = ({moduleID, handleClose}) => {
 
-    const moduleID = props.moduleID
+    const [task, setTask] = useState('')
+    const [hours, setHours] = useState(0)
+    const [minutes, setMinutes] = useState(0)
 
     const handleAddBlock = async() => {
 
         console.log("click")
+        console.log(hours)
+        console.log(minutes)
+        console.log(moduleID)
         const response = await fetch(`/schedule/addBlock/${moduleID}` , {
             method: 'PUT',
             headers: {
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({
-                task: "this is the task"
+                task: task,
+                hours: hours,
+                minutes: minutes
             })
         })
         const data = await response.json()
 
         if(response.ok){
             console.log(data)
-            console.log("module id got passed through" + moduleID)
+            handleClose()
         }
         
     }
     
     return(
             <div className="flex flex-col items-center justify-center gap-4 w-full">
-                <input type="text" name="task" aria-label="task" placeholder="Task" className="input input-ghost w-full" />
+                <input type="text" value={task} onChange={e => setTask(e.target.value)}  name="task" aria-label="task" placeholder="Task" className="input input-ghost w-full" />
                 <div className="flex gap-2 items-center w-full">
                     Duration:
-                        <input type="number" name="hours" aria-label='house' placeholder="Hours" className="input input-ghost w-28"/>
-                        <select name="minutes" aria-label='minutes' className="input input-ghost w-full">
-                            <option value={15}>15 minutes</option>
-                            <option value={30}>30 minutes</option>
-                            <option value={45}>45 minutes</option>
+                        <input type="number"  value={hours} onChange={e => setHours(e.target.value)} name="hours" aria-label='house' placeholder="Hours" className="input input-ghost w-28"/>
+                        <select name="minutes" value={minutes} onChange={e => setMinutes(e.target.value)} aria-label='minutes' className="input input-ghost w-full">
+                            <option type="number" value={0}>0 minutes</option>
+                            <option type="number" value={15}>15 minutes</option>
+                            <option type="number" value={30}>30 minutes</option>
+                            <option type="number" value={45}>45 minutes</option>
                         </select>
                 </div>
                 <button className='btn btn-primary mt-6' onClick={handleAddBlock}>Add Time Block</button>
@@ -59,9 +68,13 @@ const AddTimeBlock = (props) => {
     )
 }
 
-const AddTodoItem = (props) => {
+const AddTodoItem = ({moduleID, handleClose}) => {
 
-    const moduleID = props.moduleID
+
+    const [todoItem, setTodoItem] = useState('')
+    const [priority, setPriority] = useState('')
+    const [dueDate, setDueDate] = useState('')
+
 
     const handleAddItem = async() => {
        
@@ -71,27 +84,31 @@ const AddTodoItem = (props) => {
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({
-        //get value from form below and add
-               test: "testing"
+                text: todoItem,
+                priority: priority,
+                dueDate: dueDate
+
             })
         })
         const data = response.json()
 
         if(response.ok){
             console.log(data)
+            handleClose();
         }
     }
 
 
     return(
         <div className="flex flex-col items-center justify-center gap-4 w-full">
-            <input type="text" name="todoItem" aria-label="Todo Item" placeholder="Add Todo Item" className="input input-ghost w-full" />
+            <input type="text" value={todoItem} onChange={e => setTodoItem(e.target.value)} name="todoItem" aria-label="Todo Item" placeholder="Add Todo Item" className="input input-ghost w-full" />
             <div className="flex gap-2 items-center w-full">
-                <select name="priority" aria-label="Item Priority" className="input input-ghost">
+                <select name="priority" value={priority} onChange={e => setPriority(e.target.value)} aria-label="Item Priority" className="input input-ghost">
+                    <option>Select Priority</option>
                     <option value="low">Low Priority</option>
                     <option value="high">High Priority</option>
                 </select>
-                <input type="date" name="dueDate" className="input input-ghost"/>
+                <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} name="dueDate" className="input input-ghost"/>
             </div>
             <button className='btn btn-primary mt-6' onClick={handleAddItem}>Add Item</button>
         </div>

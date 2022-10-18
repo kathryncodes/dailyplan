@@ -1,11 +1,16 @@
-const braindumpModel = require('../models/braindump-model');
 const modules = require('../models/modules')
 
 module.exports = {
     getBrainDump : async (req, res) => {
-        //find braindump by id
-        const braindump = await modules.find({"moduleType" : "braindump"}, {_id: req.params.id})
-        //render to dashboard
+
+        try{
+            const braindump = await modules.findById({_id: req.params.id})
+            res.json(braindump)
+        }
+        catch(err){
+            console.log(err)
+        }
+
     },
     newBrainDump : async(req, res) => {
         try{
@@ -18,30 +23,49 @@ module.exports = {
             console.log(err)
         }
     },
-    editTitle : async (req, res) => {
-        //find braindump by id
-        const braindump = await modules.findOneAndUpdate({_id: req.params.id}, {
-            $set: {
-                title: req.body.braindumpTitle //ensure this gets value from input???
-            }
-        })
-        //replace title with text from input
 
-        //render to dashboard
-    }, 
-    editText : async (req, res) => {
-        //find braindump by id
-        const braindump = await modules.findOneAndUpdate({_id: req.params.id}, {
-            $set: {
-                text: req.body.braindumpText
+    editTitle : async (req, res) => {
+
+        try{
+            const braindump = await modules.findOneAndUpdate({_id: req.params.id}, {
+                $set: {
+                    title: req.body.title 
+                }
+            })
+            braindump.save()
+            res.json(braindump)
             }
-        })
-        //replace text with text from input
-        //render to dashboard
+        
+        catch(err){
+            console.log(err)
+        }
+    
+    }, 
+
+    editText : async (req, res) => {
+
+        try{
+            const braindump = await modules.findOneAndUpdate({_id: req.params.id}, {
+                $set: {
+                    text: req.body.text
+                }
+            })
+            braindump.save()
+            res.json(braindump)
+        }
+        catch(err){
+            console.log(err)
+        }
+
     },
     deleteBrainDump : async (req, res) => {
-        //find by id and delete
-        await modules.findOneAndDelete({_id: req.params.id})
-        //redirect to dashboard
+        try{
+            await modules.findOneAndDelete({_id: req.params.id})
+            console.log("Braindump deleted")
+            res.json('braindump deleted')
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 }

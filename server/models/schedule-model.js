@@ -3,16 +3,15 @@ const moduleSchema = require('./modules');
 const { v4: uuidv4 } = require('uuid');
 
 const block = new mongoose.Schema({
-    startTime:{
-        type: Date
+    task:{
+        type: String
+    },
+    hours:{
+        type: Number
         //required: true
     }, 
-    endTime:{
-        type: Date
-        //required: true
-    },
-    text:{
-        type: String
+    minutes: {
+        type: Number
     },
    id:{
     type: String,

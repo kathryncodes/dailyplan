@@ -12,7 +12,7 @@ router.put("/addItem/:id", todoController.addItem)
 
 router.put("/checkItem/:id", todoController.checkItem)
 
-router.delete("/deleteItem/:id", todoController.deleteItem)
+router.put("/deleteItem/:listID&:itemID", todoController.deleteItem)
 
 router.delete("/deleteList/:id", todoController.deleteList)
 

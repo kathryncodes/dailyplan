@@ -10,7 +10,7 @@ router.post("/newSchedule", scheduleController.newSchedule);
 
 router.put("/addBlock/:id", scheduleController.addBlock);
 
-router.delete("/deleteBlock/:id", scheduleController.deleteBlock)
+router.put("/deleteBlock/:scheduleID&:blockID", scheduleController.deleteBlock)
 
 router.delete("/delete/:id", scheduleController.deleteSchedule)
 

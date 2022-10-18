@@ -1,14 +1,19 @@
-const scheduleModel = require('../models/schedule-model');
 const modules = require('../models/modules')
 
 module.exports = {
     getSchedule : async (req, res) => {
-        //find schedule by id
-        const schedule = await modules.findById(req.params.id)
-        //render to dashboard
+
+        try{
+            const schedule = await modules.findById({_id: req.params.id})
+            res.json(schedule)
+        }
+        catch(err){
+            console.log(err)
+        }
+
     }, 
     newSchedule : async (req, res) => {
-        //create new empty schedule
+      
     try{
         await modules.create({
             moduleType: req.body.moduleType
@@ -17,40 +22,51 @@ module.exports = {
     catch(err){
         console.log(err)
     }  
-        //render to dashboard
+     
     },
     addBlock : async (req, res) => {
-        //find schedule by id 
+       
+        const newBlock = {
+            task: req.body.task,
+            hours: req.body.hours,
+            minutes: req.body.minutes
+        }
+
     try{
-        const schedule = await modules.updateOne({_id: req.params.moduleID}, {
-                $push : {
-                    blocks : {
-                        task: req.body.task,
-                        duration: req.body.duration
-                    }
-                }
-            }
-        )
-        console.log(schedule._id)
+        const schedule = await modules.findById({_id: req.params.id})
+        schedule.blocks.push(newBlock)
+        schedule.save()
         res.json(schedule)
     }
     catch(err){
         console.log(err)
     }
-        //push new block to blocks array
+ 
     },
     deleteBlock : async (req, res) => {
-        //find schedule by id
-        const schedule = await modules.findById();
-        //find block (by array index?)
-        //remove block from blocks array
-        //render dashboard
+
+        try{
+            const schedule = await modules.findById({_id: req.params.scheduleID});
+            const block = schedule.blocks.indexOf({_id: req.params.blockID})
+            schedule.blocks.splice(block, 1)
+            schedule.save()
+            console.log("block should have been deleted")
+            console.log(schedule.blocks)  
+            res.json(schedule)
+        }
+        catch(err){
+            console.log(err)
+        }
+
     },
     deleteSchedule : async(req, res) => {
-        //find schedule by id
-        //delete schedule
-        await modules.findOneAndDelete({_id: req.params.id})
-        //render dashboard
-        res.redirect("/dashboard")
+        try{
+            await modules.findOneAndDelete({_id: req.params.id})
+            console.log("Deleted schedule!")
+            res.json('schedule deleted')
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 }

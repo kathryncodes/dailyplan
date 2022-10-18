@@ -1,17 +1,43 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid';
 import { MyModal } from '../modal';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ReactModal from 'react-modal'
+import { ModulesContext } from '../../context/modulesContext';
 
 ReactModal.setAppElement('body')
 
 const ScheduleComponent = (schedule) => {
+    const moduleID = schedule.moduleID
 
+    //get schedule blocks
+    const {modules, dispatch} = useContext(ModulesContext);
+
+    const findSchedule = modules.filter(module => module._id == moduleID)
+    const timeblocks = findSchedule[0].blocks
+
+    //console.log(findSchedule);
+    console.log(timeblocks)
+
+    //delete Schedule Module
+    const handleDeleteSchedule = async() => {
+        const response = await fetch(`/schedule/${moduleID}`, {
+            method: 'DELETE'
+        })
+
+        const data = await response.json()
+
+        if(response.ok){
+            console.log(data)
+        }
+    }
+
+
+    //modal Code
 const [isOpen, setIsOpen] = useState(false)
 
 function handleOpen(){
     setIsOpen(true);
-    console.log(schedule.moduleID)
+    console.log(moduleID)
 }
 
 function handleClose(){
@@ -24,8 +50,8 @@ function handleClose(){
         backgroundImage:  "radial-gradient(#363851 0.5px, transparent 0.5px), radial-gradient(#363851 0.5px, #bfbfd5 0.5px)",
         backgroundSize: "20px 20px",
         backgroundPosition: "0 0,10px 10px",
-        zIndex: "-1",
-        color: "transparent"
+        //zIndex: "-1",
+        color: "black"
     }
 
     const modalStyle = {
@@ -46,12 +72,12 @@ function handleClose(){
             <div className="topRow h-12 flex items-center justify-between  border-b border-base">
                 <div>
                     <input type="text" name="scheduleTitle" aria-label="Schedule Title" placeholder="Today's Plan" className="input input-ghost">{schedule.title}</input>
-                </div> {/* Module title */}
-                <div className="flex items-center justify-end px-3"> {/* edit and delete buttons - should they be their own module? */}
+                </div> 
+                <div className="flex items-center justify-end px-3"> 
                     <button onClick={handleOpen} className="">
                         <PlusCircleIcon className="h-6 w-6 mx-1" />
-                    </button> {/* add icons for both, set routes */}
-                    <button className="deleteModuleBtn">
+                    </button> 
+                    <button className="deleteModuleBtn" onClick={handleDeleteSchedule}>
                         <TrashIcon className="h-6 w-6"/>
                     </button>
                 </div>
@@ -79,36 +105,44 @@ function handleClose(){
                     <div className=' mb-12 border-t  border-b border-base border-dotted   '>9:00</div>
 
                 </div>
-                <div className=" w-full m-0 p-0 " style={draggableStyle}>This is the second column</div>
-                {/* need a div for times (rows? 1x1 table?) */}
-                {/* another div for droppable area for blocks --> same height as times, width to fill module */}
+                <div className=" w-full m-0 p-0 " style={draggableStyle}>
+                    {timeblocks.map(block => <BlockComponent task={block.task}  hours={block.hours} minutes={block.minutes} key={block._id} blockID={block._id} scheduleID={moduleID}/> )}
+                </div>
             </div> 
             <ReactModal isOpen={isOpen} style={modalStyle} >
-                <MyModal moduleID={schedule.moduleID} modalType="AddBlock"/>
+                <MyModal moduleID={moduleID} modalType="AddBlock" handleClose={handleClose}/>
                 <button onClick={handleClose} className="btn btn-primary">Close</button>
             </ReactModal>
         </div>
     )
 }
 
-// const BlockComponent = (props) => {
+const BlockComponent = ({task, hours, minutes, blockID, scheduleID}) => {
+
+    const duration = `${hours} Hours and ${minutes} Minutes`
+
+    const handleDeleteBlock = async() => {
+        const response = await fetch(`/schedule/deleteBlock/${scheduleID}&${blockID}`, { method: 'PUT'})
+        const json = await response.json()
+
+        if (response.ok){
+            console.log("response ok")
+            console.log(json)
+        }
+    }
    
-//     const topY = document.getElementById("topY")
-//     const lopY = document.getElementById("lopY")
+    return(
 
-//     const hours = props.hours
-//     const minutes = props.minutes
-   
-//     function calculateHeight(hours, minutes){
-       
-//     }
-
-//     return(
-
-//         <div className="border border-primary">
-//             This is the time block
-//         </div>
-//     )
-// }
+        <div className="border border-primary h-12 flex justify-between">
+            <p>{task}
+            <br/> {duration}
+            </p>
+            <button className="deleteBlockBtn" onClick={handleDeleteBlock}>
+                <TrashIcon className="h-6 w-6"/>
+            </button>
+            
+        </div>
+    )
+}
 
 export default ScheduleComponent
