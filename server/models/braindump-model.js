@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const moduleSchema = require('./modules');
 
 const braindumpSchema = new mongoose.Schema({
-    title:{
-        type:String,
-        default: "Brain Dump"
-    },
     text:{
         type: String,
         default: ""

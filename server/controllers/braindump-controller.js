@@ -24,22 +24,6 @@ module.exports = {
             console.log(err)
         }
     },
-
-    editTitle : async (req, res) => {
-
-        try{
-            const braindump = await modules.findOne({_id: req.params.id})
-            braindump.title = req.body.title
-            braindump.save()
-            res.json(braindump)
-            }
-        
-        catch(err){
-            console.log(err)
-        }
-    
-    }, 
-
     editText : async (req, res) => {
         console.log(typeof req.body.text)
         console.log(req.body.text)

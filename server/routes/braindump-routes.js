@@ -11,7 +11,6 @@ const brainDumpController = require('../controllers/braindump-controller');
 
 router.post("/newBrainDump", brainDumpController.newBrainDump);
 router.get("/getBraindump/:id", brainDumpController.getBrainDump);
-router.put("/editTitle/:id", brainDumpController.editTitle);
 router.put("/editText/:id", brainDumpController.editText);
 router.delete("/delete/:id", brainDumpController.deleteBrainDump);
 

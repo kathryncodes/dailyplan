@@ -21,11 +21,6 @@ const block = new mongoose.Schema({
 
 const scheduleSchema =  new mongoose.Schema({
 
-    title: {
-        type: String,
-        default: "Today's plan"
-        //default = Day, Month ??
-    },
     blocks: [block]
 })
 

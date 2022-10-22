@@ -55,7 +55,7 @@ const TodoComponent = (todo) => {
     return(
         <div className="border-4 border-base col-span-1 row-span-1 rounded-2xl">
             <div className="topRow flex justify-between px-5 items-center border-b border-base">
-                <input type="text" className="input input-ghost" aria-label="ToDo List" placeholder="Things to do" />
+            <h2 className='text-xl mt-2 mb-2 ml-4 font-bold'>Things To Do</h2>
                 <div className="flex items-center">
                 <button >
                         <PlusCircleIcon className="h-6 w-6 mx-1" onClick={handleOpen}/>

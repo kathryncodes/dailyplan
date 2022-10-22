@@ -71,7 +71,7 @@ function handleClose(){
         <div className="border-4 border-base rounded-2xl row-start-1 row-span-2 col-span-1 h-full overflow-y-hidden">
             <div className="topRow h-12 flex items-center justify-between  border-b border-base">
                 <div>
-                    <input type="text" name="scheduleTitle" aria-label="Schedule Title" placeholder="Today's Plan" className="input input-ghost">{schedule.title}</input>
+                    <h2 className='text-xl mt-2 mb-2 ml-4 font-bold'>Today's Plan</h2>
                 </div> 
                 <div className="flex items-center justify-end px-3"> 
                     <button onClick={handleOpen} className="">
