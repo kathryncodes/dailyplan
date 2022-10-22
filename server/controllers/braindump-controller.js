@@ -1,3 +1,4 @@
+const braindumpModel = require('../models/braindump-model')
 const modules = require('../models/modules')
 
 module.exports = {
@@ -27,11 +28,8 @@ module.exports = {
     editTitle : async (req, res) => {
 
         try{
-            const braindump = await modules.findOneAndUpdate({_id: req.params.id}, {
-                $set: {
-                    title: req.body.title 
-                }
-            })
+            const braindump = await modules.findOne({_id: req.params.id})
+            braindump.title = req.body.title
             braindump.save()
             res.json(braindump)
             }
@@ -43,13 +41,11 @@ module.exports = {
     }, 
 
     editText : async (req, res) => {
-
+        console.log(typeof req.body.text)
+        console.log(req.body.text)
         try{
-            const braindump = await modules.findOneAndUpdate({_id: req.params.id}, {
-                $set: {
-                    text: req.body.text
-                }
-            })
+            const braindump = await modules.findOne({_id: req.params.id})
+            braindump.text = req.body.text
             braindump.save()
             res.json(braindump)
         }

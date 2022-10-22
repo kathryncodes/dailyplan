@@ -1,15 +1,15 @@
 import { TrashIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect, useContext } from 'react';
 import { ModulesContext } from '../../context/modulesContext';
+import {DebounceInput} from 'react-debounce-input';
 
-const BraindumpComponent = ( braindump ) => {
+const BraindumpComponent = ( {braindump} ) => {
 
     const moduleID = braindump.moduleID
     const title = braindump.title
     const text = braindump.text
 
     const {modules, dispatch} = useContext(ModulesContext);
-
 
      const handleBraindumpDelete = async() => {
         const response = await fetch(`/braindump/delete/${moduleID}`, {
@@ -38,24 +38,31 @@ const BraindumpComponent = ( braindump ) => {
        }
     }
 
-    const handleEditText = async () => {
-        const response = await fetch(`/braindump/editText/${moduleID}`, {
-         method: 'PUT',
-         body: {
-             text: text
-         }
-        })
- 
-        const data = await response.json()
- 
-        if(response.ok){
-         console.log(data)
+    const handleEditText = (e) => {
+        const newText = e.target.value
+        async function editText (newText) {
+            const response = await fetch(`/braindump/editText/${moduleID}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({
+                    text: newText
+                })
+               })
+       
+               console.log(newText)
+               const data = await response.json()
+       
+               if(response.ok){
+                console.log(data)
+               }
         }
- 
+
+        editText(newText)
+
      }
-
-    
-
+     
     const textAreaStyles = {
         resize: "none",
         backgroundColor: "#e1e1e8",
@@ -75,7 +82,17 @@ const BraindumpComponent = ( braindump ) => {
                     </button>
             </div>
             <div className="h-full">
-                <textarea name="braindumpText" value={text} onChange={handleEditText} className="input input-ghost h-full w-full font-bold"   style={textAreaStyles}>{text}</textarea> 
+            
+                <DebounceInput 
+                debounceTimeout={500}
+                element="textarea" 
+                name="braindumpText" 
+                 value={text} 
+                onChange={handleEditText} 
+                className="input input-ghost h-full w-full font-bold" 
+                style={textAreaStyles}>
+                    {text}
+                </DebounceInput> 
             </div>
         </div>
     )
