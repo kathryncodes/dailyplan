@@ -95,10 +95,10 @@ const AddTodoItem = ({moduleID, handleClose}) => {
 
             })
         })
-        const data = response.json()
+        const data = await response.json()
 
         if(response.ok){
-            console.log(data)
+            //console.log(data)
             dispatch({type: 'UPDATE_MODULE', payload: data})
             handleClose();
         }

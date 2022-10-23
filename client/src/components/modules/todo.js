@@ -85,13 +85,16 @@ const TodoItem = (props) => {
     const itemID = props.itemID
     const listID = props.listID
 
+    const {dispatch} = useContext(ModulesContext);
+
     const handleDeleteItem = async() => {
         const response = await fetch(`/todo/deleteItem/${listID}&${itemID}`, { method: 'PUT'})
-        const json = await response.json()
+        const data = await response.json()
 
         if (response.ok){
             console.log("response ok")
-            console.log(json)
+            dispatch({type: 'UPDATE_MODULE', payload: data})
+            console.log(data)
         }
 
         

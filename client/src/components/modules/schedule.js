@@ -134,13 +134,16 @@ const BlockComponent = ({task, hours, minutes, blockID, scheduleID}) => {
 
     const duration = `${hours} Hours and ${minutes} Minutes`
 
+    const {dispatch} = useContext(ModulesContext);
+
     const handleDeleteBlock = async() => {
         const response = await fetch(`/schedule/deleteBlock/${scheduleID}&${blockID}`, { method: 'PUT'})
-        const json = await response.json()
+        const data = await response.json()
 
         if (response.ok){
             console.log("response ok")
-            console.log(json)
+            console.log(data)
+            dispatch({type: 'UPDATE_MODULE', payload: data})
         }
     }
 

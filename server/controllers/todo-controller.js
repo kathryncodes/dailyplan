@@ -43,7 +43,7 @@ module.exports = {
             
             console.log(newItem) 
             console.log("list: ")
-            console.log(list) 
+            //console.log(list) 
            
             res.json(list) 
         }

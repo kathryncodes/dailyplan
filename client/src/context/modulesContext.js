@@ -12,11 +12,11 @@ export const modulesReducer = (state, action) => {
             return{
                 modules: [...state.modules, action.payload]
             }
-        //  case 'UPDATE_MODULE':
-            
-        //     return{
-                
-        //     }
+         case 'UPDATE_MODULE':
+          const updatedModule = action.payload
+            return {
+               modules: state.modules.map((module) => module._id == action.payload._id ? updatedModule : module)
+            }
         case 'DELETE_MODULE':
             return{
                 modules: state.modules.filter((module) => module._id !== action.payload._id)
