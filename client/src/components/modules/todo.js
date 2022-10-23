@@ -47,6 +47,7 @@ const TodoComponent = (todo) => {
 
         if(response.ok){
             console.log(data)
+            dispatch({type: 'DELETE_MODULE', payload: data})
         }
     }
 

@@ -16,14 +16,15 @@ module.exports = {
     },
     newList : async (req, res) => {
         try{
-             await modules.create({
+            const newList =  await modules.create({
                 moduleType: req.body.moduleType
             }) 
+
+            res.json(newList)
         }
         catch(err){
             console.log(err)
         }
-
     },
     addItem: async(req, res) => {
 
@@ -80,9 +81,10 @@ module.exports = {
     },
     deleteList: async (req, res) => {
         try{
-            await modules.findOneAndDelete({_id: req.params.id})
+            const list = await modules.findOneAndDelete({_id: req.params.id})
             console.log("Deleted list!")
-            res.json('list deleted')
+
+            res.json(list)
         }
         catch(err){
             console.log(err)

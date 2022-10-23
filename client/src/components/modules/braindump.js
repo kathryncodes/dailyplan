@@ -3,10 +3,9 @@ import { useState, useEffect, useContext } from 'react';
 import { ModulesContext } from '../../context/modulesContext';
 import {DebounceInput} from 'react-debounce-input';
 
-const BraindumpComponent = ( {braindump} ) => {
+const BraindumpComponent = ( {braindump, moduleID} ) => {
 
-    const moduleID = braindump.moduleID
-    const title = braindump.title
+    console.log(moduleID)
     const text = braindump.text
 
     const {modules, dispatch} = useContext(ModulesContext);
@@ -20,6 +19,7 @@ const BraindumpComponent = ( {braindump} ) => {
     
            if(response.ok){
             console.log("deleted braindump")
+            dispatch({type: 'DELETE_MODULE', payload: data})
            }
      }
 
@@ -41,6 +41,7 @@ const BraindumpComponent = ( {braindump} ) => {
        
                if(response.ok){
                 console.log(data)
+                dispatch({type: 'GET_MODULES', payload: data})
                }
         }
 

@@ -16,9 +16,11 @@ module.exports = {
     newSchedule : async (req, res) => {
       
     try{
-        await modules.create({
+        const newSched = await modules.create({
             moduleType: req.body.moduleType
         })
+
+        res.json(newSched)
     } 
     catch(err){
         console.log(err)
@@ -64,9 +66,10 @@ module.exports = {
     },
     deleteSchedule : async(req, res) => {
         try{
-            await modules.findOneAndDelete({_id: req.params.id})
+            const schedule = await modules.findOneAndDelete({_id: req.params.id})
             console.log("Deleted schedule!")
-            res.json('schedule deleted')
+
+            res.json(schedule)
         }
         catch(err){
             console.log(err)

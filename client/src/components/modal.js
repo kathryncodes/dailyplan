@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ModulesContext } from "../context/modulesContext";
 
 export const MyModal = (props) => {
 
@@ -19,6 +20,8 @@ export const MyModal = (props) => {
 
 
 const AddTimeBlock = ({moduleID, handleClose}) => {
+
+    const {dispatch} = useContext(ModulesContext)
 
     const [task, setTask] = useState('')
     const [hours, setHours] = useState(0)
@@ -45,6 +48,7 @@ const AddTimeBlock = ({moduleID, handleClose}) => {
 
         if(response.ok){
             console.log(data)
+            dispatch({type: 'UPDATE_MODULE', payload: data})
             handleClose()
         }
         
@@ -70,6 +74,7 @@ const AddTimeBlock = ({moduleID, handleClose}) => {
 
 const AddTodoItem = ({moduleID, handleClose}) => {
 
+    const { dispatch } = useContext(ModulesContext)
 
     const [todoItem, setTodoItem] = useState('')
     const [priority, setPriority] = useState('')
@@ -94,6 +99,7 @@ const AddTodoItem = ({moduleID, handleClose}) => {
 
         if(response.ok){
             console.log(data)
+            dispatch({type: 'UPDATE_MODULE', payload: data})
             handleClose();
         }
     }

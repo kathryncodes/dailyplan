@@ -22,7 +22,7 @@ const Dashboard = () => {
 
     }
     getModules() 
-   }, [dispatch])
+   }, [ModulesContext])
     
     return(
         <div >

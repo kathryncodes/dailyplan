@@ -15,14 +15,15 @@ module.exports = {
     },
     newBrainDump : async(req, res) => {
         try{
-            await modules.create({
+            const newBD = await modules.create({
                 moduleType : req.body.moduleType
             })
-            req.reload('/dashboard')
+            res.json(newBD)
         }
         catch(err){
             console.log(err)
         }
+        
     },
     editText : async (req, res) => {
         console.log(typeof req.body.text)
@@ -40,9 +41,10 @@ module.exports = {
     },
     deleteBrainDump : async (req, res) => {
         try{
-            await modules.findOneAndDelete({_id: req.params.id})
+           const braindump =  await modules.findOneAndDelete({_id: req.params.id})
             console.log("Braindump deleted")
-            res.json('braindump deleted')
+
+            res.json(braindump)
         }
         catch(err){
             console.log(err)

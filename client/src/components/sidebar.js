@@ -1,10 +1,12 @@
-import { useState } from "react"
-
+import { useState, useContext } from "react"
+import { ModulesContext } from "../context/modulesContext";
 
 
 //EXTRAS: display welcome user message
 
 const Sidebar = () => {
+
+    const { dispatch } = useContext(ModulesContext);
 
     const [open, setOpen] = useState(false);
 
@@ -28,8 +30,11 @@ const Sidebar = () => {
         if(response.ok){
             console.log(data)
             console.log("connection worked")
+            dispatch({type: 'ADD_MODULE', payload: data})
 
         }
+
+        toggleOpen()
 
     }
 
@@ -49,8 +54,10 @@ const Sidebar = () => {
         if(response.ok){
         console.log(data)
         console.log("connection worked")
-
+        dispatch({type: 'ADD_MODULE', payload: data})
         }
+
+        toggleOpen()
     }
 
     const addTodo = async() => {
@@ -69,7 +76,10 @@ const Sidebar = () => {
         if(response.ok){
         console.log(data)
         console.log("connection worked")
+        dispatch({type: 'ADD_MODULE', payload: data})
         }
+
+        toggleOpen()
     }
 
     return(

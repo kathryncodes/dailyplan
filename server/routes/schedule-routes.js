@@ -14,11 +14,4 @@ router.put("/deleteBlock/:scheduleID&:blockID", scheduleController.deleteBlock)
 
 router.delete("/delete/:id", scheduleController.deleteSchedule)
 
-//ROUTES
-    //      /add --> new instance of schedule model
-    //      /:id/addBlock --> new time block for this module
-    //      /:id/editBlock --> edit specific block
-    //      /:id/deleteBlock --> delete specific block
-    //      /delete/:id --> delete this module
-
 module.exports = router;

@@ -20,7 +20,7 @@ const ScheduleComponent = (schedule) => {
 
     //delete Schedule Module
     const handleDeleteSchedule = async() => {
-        const response = await fetch(`/schedule/${moduleID}`, {
+        const response = await fetch(`/schedule/delete/${moduleID}`, {
             method: 'DELETE'
         })
 
@@ -28,6 +28,7 @@ const ScheduleComponent = (schedule) => {
 
         if(response.ok){
             console.log(data)
+            dispatch({type: 'DELETE_MODULE', payload: data})
         }
     }
 
@@ -105,15 +106,27 @@ function handleClose(){
                     <div className=' mb-12 border-t  border-b border-base border-dotted   '>9:00</div>
 
                 </div>
+           
+               
                 <div className=" w-full m-0 p-0 " style={draggableStyle}>
-                    {timeblocks.map(block => <BlockComponent task={block.task}  hours={block.hours} minutes={block.minutes} key={block._id} blockID={block._id} scheduleID={moduleID}/> )}
+                    
+                    {timeblocks.map(block => 
+                   
+                        <BlockComponent task={block.task}  hours={block.hours} minutes={block.minutes} key={block._id} blockID={block._id} scheduleID={moduleID}/> 
+                  
+                    )}
+                   
                 </div>
+          
             </div> 
-            <ReactModal isOpen={isOpen} style={modalStyle} >
-                <MyModal moduleID={moduleID} modalType="AddBlock" handleClose={handleClose}/>
-                <button onClick={handleClose} className="btn btn-primary">Close</button>
-            </ReactModal>
+            
+                <ReactModal isOpen={isOpen} style={modalStyle} >
+                    <MyModal moduleID={moduleID} modalType="AddBlock" handleClose={handleClose}/>
+                    <button onClick={handleClose} className="btn btn-primary">Close</button>
+                </ReactModal>
+            
         </div>
+        
     )
 }
 
@@ -130,10 +143,11 @@ const BlockComponent = ({task, hours, minutes, blockID, scheduleID}) => {
             console.log(json)
         }
     }
-   
+
+
     return(
 
-        <div className="border border-primary h-12 flex justify-between">
+        <div className={`border border-primary flex justify-between h-12`} >
             <p>{task}
             <br/> {duration}
             </p>
