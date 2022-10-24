@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import logo from '../images/dailyplan_dark.png'
 
 
 const SignupComponent = () => {
@@ -13,7 +14,7 @@ const SignupComponent = () => {
         <div className="hero min-h-screen text-center">
 
             <div className="hero-content flex-col">
-            <img src="https://picsum.photos/id/237/500/250" className="mb-3"/>
+            <img src={logo} className="mb-3"/>
             <h3 className="font-bold text-2xl">Create an account</h3>
             {/* How to line up this route with backend route??? */}
             <form action="/signup" method="POST" id="signupForm" className="mb-6 flex flex-col mt-6 items-center content-between space-y-3">

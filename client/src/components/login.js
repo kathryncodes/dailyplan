@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-
+import logo from '../images/dailyplan_dark.png'
 
 
 const LoginComponent = () => {
@@ -8,7 +8,7 @@ const LoginComponent = () => {
     return(
         <div className="min-h-screen hero text-center" >
             <div className="hero-content flex-col">
-            <img src="https://picsum.photos/id/237/500/250" className="mb-3"/>
+            <img src={logo} className="mb-3"/>
             <h3 className="mb-6 font-bold text-2xl">Login to your account</h3>
             <form action="/login" method="POST" className="form-control">
                 <div className="">
