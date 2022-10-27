@@ -1,16 +1,8 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid';
 import { MyModal } from '../modal';
-import { useState, useContext } from 'react';
+import { useState, useContext, React } from 'react';
 import ReactModal from 'react-modal'
 import { ModulesContext } from '../../context/modulesContext';
-
-import { DndContext, closestCenter, useDraggable, useDroppable } from '@dnd-kit/core'
-
-import { useSortable, SortableContext, verticalListSortingStrategy,  } from '@dnd-kit/sortable';
-
-import { restrictToVerticalAxis , restrictToParentElement} from '@dnd-kit/modifiers'
-
-import { CSS } from '@dnd-kit/utilities'
 
 ReactModal.setAppElement('body')
 
@@ -20,7 +12,7 @@ const ScheduleComponent = (schedule) => {
     //get schedule blocks
     const {modules, dispatch} = useContext(ModulesContext);
 
-    const findSchedule = modules.filter(module => module._id == moduleID)
+    const findSchedule = modules.filter(module => module._id === moduleID)
     const timeblocks = findSchedule[0].blocks
 
     //console.log(findSchedule);
@@ -76,13 +68,6 @@ function handleClose(){
         }
     }
 
-    //Drag and Drop
-    function handleDragEnd(event) {
-        console.log(event)
-    }
-
-    const { attributes, listeners, setNodeRef } = useSortable(timeblocks)
-
     return(
         <div className="border-4 border-base rounded-2xl row-start-1 row-span-2 col-span-1 h-full overflow-y-hidden">
             <div className="topRow h-12 flex items-center justify-between  border-b border-base">
@@ -122,21 +107,21 @@ function handleClose(){
 
                 </div>
            
-           <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd} autoScroll={false} modifiers={[restrictToVerticalAxis, restrictToParentElement]}>
+        
                    
-                    <div className=" w-full m-0 p-0 " style={draggableStyle} ref={setNodeRef} > 
+                    <div className=" w-full m-0 p-0" style={draggableStyle}  > 
                     
                         {timeblocks.map(block => 
-                           <SortableContext items={timeblocks} key={block._id} strategy={verticalListSortingStrategy}>
-                                <BlockComponent {...attributes} {...listeners}
+                        
+                                <BlockComponent 
                                 task={block.task} hours={block.hours} minutes={block.minutes} blockID={block._id} scheduleID={moduleID} timeblocks={timeblocks}/> 
-                            </SortableContext>
+                    
                         )}
                       
 
-                    </div>
+                     </div>
                     
-            </DndContext>
+          
 
             </div> 
             
@@ -152,13 +137,15 @@ function handleClose(){
 
 const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks}) => {
 
-    const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({id: blockID})
+   
+   // const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({id: blockID})
 
     const duration = `${hours} Hours and ${minutes} Minutes`
 
     const {dispatch} = useContext(ModulesContext);
 
     const handleDeleteBlock = async() => {
+        console.log("clicked!")
         const response = await fetch(`/schedule/deleteBlock/${scheduleID}&${blockID}`, { method: 'PUT'})
         const data = await response.json()
 
@@ -169,24 +156,18 @@ const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks})
         }
     }
 
-    const style = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-    }
-
+    const height = ((minutes / 60) + hours) * 3.1
 
     return(
-       
-            <div  className={`border border-primary flex justify-between h-12`} {...attributes} {...listeners} ref={setNodeRef} style={style}>
+            <div  className={`border border-primary flex justify-between px-1`} style={{height: `${height}rem`, background: '#EEDCFF'}}>
                 <p>{task}
                 <br/> {duration}
                 </p>
                 <button className="deleteBlockBtn" onClick={handleDeleteBlock}>
-                    <TrashIcon className="h-6 w-6"/>
+                    <TrashIcon className="h-6 w-6" />
                 </button>
                 
             </div>
-    
     )
 }
 
