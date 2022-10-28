@@ -3,6 +3,8 @@ import { MyModal } from '../modal';
 import { useState, useContext, React } from 'react';
 import ReactModal from 'react-modal'
 import { ModulesContext } from '../../context/modulesContext';
+import ReactDOM from 'react-dom';
+import Draggable from 'react-draggable';
 
 ReactModal.setAppElement('body')
 
@@ -14,9 +16,6 @@ const ScheduleComponent = (schedule) => {
 
     const findSchedule = modules.filter(module => module._id === moduleID)
     const timeblocks = findSchedule[0].blocks
-
-    //console.log(findSchedule);
-    console.log(timeblocks)
 
     //delete Schedule Module
     const handleDeleteSchedule = async() => {
@@ -109,13 +108,13 @@ function handleClose(){
            
         
                    
-                    <div className=" w-full m-0 p-0" style={draggableStyle}  > 
+                    <div className=" w-full m-0 p-0 relative" style={draggableStyle} id="draggableArea" > 
                     
                         {timeblocks.map(block => 
-                        
+                     
                                 <BlockComponent 
-                                task={block.task} hours={block.hours} minutes={block.minutes} blockID={block._id} scheduleID={moduleID} timeblocks={timeblocks}/> 
-                    
+                                task={block.task} hours={block.hours} minutes={block.minutes} blockID={block._id} scheduleID={moduleID} timeblocks={timeblocks}/>
+                       
                         )}
                       
 
@@ -137,9 +136,6 @@ function handleClose(){
 
 const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks}) => {
 
-   
-   // const { attributes, listeners, setNodeRef, transform, transition } = useDraggable({id: blockID})
-
     const duration = `${hours} Hours and ${minutes} Minutes`
 
     const {dispatch} = useContext(ModulesContext);
@@ -159,7 +155,8 @@ const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks})
     const height = ((minutes / 60) + hours) * 3.1
 
     return(
-            <div  className={`border border-primary flex justify-between px-1`} style={{height: `${height}rem`, background: '#EEDCFF'}}>
+        <Draggable axis="y" bounds='parent' >
+            <div  className={`border border-primary flex justify-between px-1 hover:cursor-move`} style={{height: `${height}rem`, background: '#EEDCFF'}}>
                 <p>{task}
                 <br/> {duration}
                 </p>
@@ -168,6 +165,7 @@ const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks})
                 </button>
                 
             </div>
+        </Draggable>
     )
 }
 
