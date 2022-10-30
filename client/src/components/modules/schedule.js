@@ -1,6 +1,6 @@
 import { TrashIcon , PlusCircleIcon } from '@heroicons/react/24/solid';
 import { MyModal } from '../modal';
-import { useState, useContext, React } from 'react';
+import { useState, useContext, React, useEffect } from 'react';
 import ReactModal from 'react-modal'
 import { ModulesContext } from '../../context/modulesContext';
 import ReactDOM from 'react-dom';
@@ -109,14 +109,13 @@ function handleClose(){
         
                    
                     <div className=" w-full m-0 p-0 relative" style={draggableStyle} id="draggableArea" > 
-                    
+                  
                         {timeblocks.map(block => 
                      
-                                <BlockComponent 
+                                <BlockComponent key={block._id}
                                 task={block.task} hours={block.hours} minutes={block.minutes} blockID={block._id} scheduleID={moduleID} timeblocks={timeblocks}/>
-                       
-                        )}
                       
+                        )}
 
                      </div>
                     
@@ -136,6 +135,26 @@ function handleClose(){
 
 const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks}) => {
 
+  
+    const [defaultY, setDefaultY] = useState(0)
+    const [ hasLoaded, setHasLoaded ] = useState(false)
+
+    function handleStop(event, data){
+        setDefaultY(data.y)
+    }
+
+    useEffect(() => {
+        const checkDefault = JSON.parse(localStorage.getItem(`${blockID}`))
+        console.log(checkDefault)
+        setDefaultY(checkDefault)
+        setHasLoaded(true)
+    }, [])
+
+
+    useEffect(() => {
+        localStorage.setItem(`${blockID}`, JSON.stringify(defaultY))
+    }, [defaultY])
+
     const duration = `${hours} Hours and ${minutes} Minutes`
 
     const {dispatch} = useContext(ModulesContext);
@@ -154,19 +173,28 @@ const BlockComponent = ({task, hours, minutes, blockID, scheduleID, timeblocks})
 
     const height = ((minutes / 60) + hours) * 3.1
 
-    return(
-        <Draggable axis="y" bounds='parent' >
-            <div  className={`border border-primary flex justify-between px-1 hover:cursor-move`} style={{height: `${height}rem`, background: '#EEDCFF'}}>
-                <p>{task}
-                <br/> {duration}
-                </p>
-                <button className="deleteBlockBtn" onClick={handleDeleteBlock}>
-                    <TrashIcon className="h-6 w-6" />
-                </button>
-                
-            </div>
-        </Draggable>
-    )
+
+    return  hasLoaded ? (
+        <Draggable 
+        axis="y" 
+        bounds='parent' 
+        onStop={handleStop}
+        blockID={blockID}
+        defaultPosition={{x:0, y: defaultY}}
+        >
+            
+                <div  className={`border border-primary flex justify-between px-1 hover:cursor-move`} style={{height: `${height}rem`, background: '#EEDCFF'}}>
+                    <p>{task}
+                    <br/> {duration}
+                    </p>
+                    <button className="deleteBlockBtn" onClick={handleDeleteBlock}>
+                        <TrashIcon className="h-6 w-6" />
+                    </button>
+                    
+                </div>
+           
+          </Draggable>
+    ) : null
 }
 
 export default ScheduleComponent
