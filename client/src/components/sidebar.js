@@ -82,6 +82,28 @@ const Sidebar = () => {
         toggleOpen()
     }
 
+    const addTimer = async() => {
+        const response = await fetch("http://localhost:2121/timer/newTimer", {
+            method: "POST",
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({
+                moduleType : "timer"
+            })
+        })
+    
+        const data = await response.json();
+
+        if(response.ok){
+        console.log(data)
+        console.log("connection worked")
+        dispatch({type: 'ADD_MODULE', payload: data})
+        }
+
+        toggleOpen()
+    }
+
     return(
         <div>
             {!open && <button className='btn btn-primary' onClick={toggleOpen}>|||</button>}
@@ -93,6 +115,7 @@ const Sidebar = () => {
                         <button className="btn btn-primary w-40" onClick={addSchedule}>New Schedule</button>
                         <button className="btn btn-primary w-40" onClick={addBrainDump}>New Brain Dump</button>
                         <button className="btn btn-primary w-40" onClick={addTodo}>New To-do List</button>
+                        <button className="btn btn-primary w-40" onClick={addTimer}>New Timer</button>
                     </div>
                 </div>
             }

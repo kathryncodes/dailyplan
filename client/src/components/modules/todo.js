@@ -51,8 +51,6 @@ const TodoComponent = (todo) => {
         }
     }
 
-    //Delete Item function
-
     return(
         <div className="border-4 border-base col-span-1 row-span-1 rounded-2xl">
             <div className="topRow flex justify-between px-5 items-center border-b border-base">

@@ -33,6 +33,7 @@ const dashboardRoutes = require('./routes/dashboard-routes');
 const braindumpRoutes = require('./routes/braindump-routes')
 const scheduleRoutes = require('./routes/schedule-routes');
 const toDoRoutes = require('./routes/todo-routes');
+const timerRoutes = require('./routes/timer-routes')
 
 //require .env
 require("dotenv").config({path: "./config/.env"});
@@ -86,6 +87,7 @@ app.use("/dashboard", dashboardRoutes);
 app.use("/braindump", braindumpRoutes);
 app.use("/schedule", scheduleRoutes);
 app.use("/todo", toDoRoutes);
+app.use("/timer", timerRoutes);
 
 // //Server Running
 app.listen(process.env.PORT, () => {
