@@ -66,7 +66,7 @@ const TodoComponent = (todo) => {
             </div>
             <div className="listArea rounded-b-lg h-full">
                 
-                {items.map(item => <TodoItem text={item.text} key={item._id} itemID={item._id} listID={moduleID}/> )}
+                {items.map(item => <TodoItem text={item.text} key={item._id} itemID={item._id} listID={moduleID} priority={item.priority} dueDate={item.dueDate}/> )}
 
                 
             </div>
@@ -80,10 +80,51 @@ const TodoComponent = (todo) => {
 
 const TodoItem = (props) => {
     // if classname toggles to check, change styles
+    //use state for this
     const itemID = props.itemID
     const listID = props.listID
+    const priority = props.priority
+    const dueDate = props.dueDate
+    //const formatted = dueDate.toLocaleDateString('en-gb', {month: 'short', day: 'numeric'})
 
     const {dispatch} = useContext(ModulesContext);
+
+    const [completed, setCompleted] = useState(false)
+
+    const completedStyle = {
+        textDecoration: 'line-through'
+    }
+
+    const completeItem = () => {
+        setCompleted(true)
+        //updateDB();
+        console.log(completed)
+    }
+
+    const undoComplete = () => {
+        setCompleted(false)
+       // updateDB();
+        console.log(completed)
+    }
+
+    // const updateDB = async() => {
+    //     const response = await fetch(`/todo/checkItem/${listID}&${itemID}`, { 
+    //         method: 'PUT',
+    //         headers:{
+    //             'Content-Type' : 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             completed: completed
+    //         })
+    // })
+    //     const data = await response.json()
+    //     console.log(completed)
+    //     if (response.ok){
+    //         console.log("changed completed status")
+    //         dispatch({type: 'UPDATE_MODULE', payload: data})
+    //         console.log(data)
+    //     }
+    // }
 
     const handleDeleteItem = async() => {
         const response = await fetch(`/todo/deleteItem/${listID}&${itemID}`, { method: 'PUT'})
@@ -98,15 +139,35 @@ const TodoItem = (props) => {
         
     }
 
+    const priorityStyle={
+        backgroundColor: priority == "low" ? 'green' : 'red',
+        fontSize: "13px",
+        color: 'white',
+        padding: '2px 8px',
+        borderRadius: '15px'
+
+    }
+
+    const dueDateStyle={
+        backgroundColor: 'grey',
+        color: 'black'
+    }
+
     return( 
-        <div className="flex flex-row justify-between h-12 px-5 items-center  border-base">
-            <div className="flex ">
-            <input type="checkbox" className="checkbox unchecked" />
-            <p className="text-base font-bold pl-2" id={itemID}>{props.text}</p> 
+        <div className='mb-2'>
+        <div className="flex justify-between h-8 px-5 items-center  border-base">
+            <div className="flex mb-0 pb-0">
+                <input type="checkbox" className={`checkbox`} onClick={completed ? undoComplete : completeItem} />
+                <p className="text-base font-bold pl-2" id={itemID} style={completed ? completedStyle : null}>{props.text}</p>
             </div>
             <button className="deleteItemBtn" onClick={handleDeleteItem}>
                         <TrashIcon className="h-6 w-6"/>
-             </button>
+            </button> 
+        </div>
+        <div className="flex justify-left ml-12 ">
+                    <span className="font-bold" style={priority.length > 1 ? priorityStyle : null}>{priority.length > 1 ? `${priority} priority`  : ""}</span>
+                    {/* <span style={dueDateStyle}>{dueDate}</span> */}
+        </div>
         </div>
     )
 }

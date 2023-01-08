@@ -38,7 +38,7 @@ module.exports = {
 
         try{  
             const list = await modules.findOne({_id: req.params.id}) 
-            list.items.push(newItem) //this works but isn't using Mongo operators??
+            list.items.push(newItem)
             list.save()
             
             console.log(newItem) 
@@ -54,11 +54,19 @@ module.exports = {
     },
     checkItem: async (req, res) => {
         try{
-  
-            //const todoItem = await list.items.findById({}) ???
-            
-            //set the value for completed to true
-            //render updated list on dashboard (style changes for checkbox)
+        const list = await modules.findOne({_id: req.params.listID})
+          list.items.findOneAndUpdate({_id: req.params.itemID}, 
+            {
+                $set:{
+                    completed: req.body.completed
+                }
+            }
+            )
+          list.save()
+          console.log(list)
+          console.log(list.items)
+          res.json(list)
+          
         }
         catch(err){
             console.log(err)
