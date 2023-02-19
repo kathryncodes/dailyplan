@@ -41,7 +41,7 @@ const BraindumpComponent = ( {braindump, moduleID} ) => {
        
                if(response.ok){
                 console.log(data)
-                dispatch({type: 'GET_MODULES', payload: data})
+                dispatch({type: 'UPDATE_MODULE', payload: data})
                }
         }
 
