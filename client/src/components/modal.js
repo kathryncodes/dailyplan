@@ -83,7 +83,7 @@ const AddTodoItem = ({moduleID, handleClose}) => {
 
 
     const handleAddItem = async() => {
-       
+     
         const response = await fetch(`/todo/addItem/${moduleID}`, {
             method: 'PUT',
             headers: {
@@ -125,12 +125,37 @@ const AddTodoItem = ({moduleID, handleClose}) => {
 
 const AddTimezone = ({moduleID, handleClose}) => {
 
+    const { dispatch } = useContext(ModulesContext)
+
+    const handleAddTimezone = async() => {
+
+        console.log("clicked add timezone button")
+
+        const response = await fetch(`/worldclock/addTimezone/${moduleID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                city: 'Melbourne',
+                country: 'Australia'
+            })
+        })
+
+        const data = await response.json()
+
+            if(response.ok){
+                dispatch({type: 'UPDATE_MODULE', payload: data})
+                handleClose();
+            }
+
+}
 
 return(
     <div className="flex flex-col items-center justify-center gap-4 w-full">
-           <p>testing, testing</p>
+           <input  type="text" />
 
-
+        <button className="btn btn-primary mt-6" onClick={handleAddTimezone}>Add Time Zone</button>
     </div>
 )
 

@@ -26,6 +26,11 @@ const WorldClockComponent = (worldclock) => {
     const moduleID = worldclock.moduleID
     const {modules, dispatch} = useContext(ModulesContext);
 
+    const listOfTimezones = modules.filter(module => module._id == moduleID)
+    const timezones = listOfTimezones[0].timezones
+
+    console.log(timezones)
+
     //modal code
     const [isOpen, setIsOpen] = useState(false)
     function handleOpen(){
@@ -62,7 +67,7 @@ const WorldClockComponent = (worldclock) => {
         </div>
         <div className="h-full">
 
-            <Timezone />
+            {timezones.map(timezone => <Timezone city={timezone.city} country={timezone.country} key={timezone._id} timezoneID={timezone._id} worldclockID={moduleID} />)}
 
         </div>
         <ReactModal isOpen={isOpen} style={modalStyle} >
@@ -77,12 +82,10 @@ const WorldClockComponent = (worldclock) => {
 }
 
 const Timezone = (props) => {
-    const timezoneID = props.timezoneID
-
-
+   
     return(
         <div>
-            This is the timezone component!
+            <p>{props.city}, {props.country}</p>
 
         </div>
 

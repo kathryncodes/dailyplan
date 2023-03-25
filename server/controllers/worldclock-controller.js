@@ -26,11 +26,19 @@ module.exports = {
     },
 
     addTimezone : async(req, res) => {
-        try{
-            const addTimezone = await modules.create({
-                moduleType : req.body.moduleType
-            })
-            res.json(addTimezone)
+        const newTimezone = { 
+                city: req.body.city,
+                country: req.body.country
+            }
+
+        try{  
+            const worldClockModule = await modules.findOne({_id: req.params.id}) 
+            worldClockModule.timezones.push(newTimezone)
+            worldClockModule.save()
+            
+            console.log(newTimezone)  
+           
+            res.json(worldClockModule) 
         }
         catch(err){
             console.log(err)

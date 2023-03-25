@@ -5,13 +5,13 @@ const worldClockController = require('../controllers/worldclock-controller');
 router.post("/newWorldClock", worldClockController.newWorldClock)
 
 //change these:
-router.get("/getList/:id", worldClockController.getWorldClock)
+router.get("/getWorldClock/:id", worldClockController.getWorldClock)
 
-router.put("/addItem/:id", worldClockController.addTimezone) 
+router.put("/addTimezone/:id", worldClockController.addTimezone) 
 
 //change these:
-router.put("/deleteItem/:listID&:itemID", worldClockController.deleteTimezone)
+router.put("/deleteTimezone/:timezoneID&:worldclockID", worldClockController.deleteTimezone)
 
-router.delete("/deleteList/:id", worldClockController.deleteWorldClock)
+router.delete("/deleteWorldClock/:id", worldClockController.deleteWorldClock)
 
 module.exports = router;

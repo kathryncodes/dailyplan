@@ -52,27 +52,6 @@ module.exports = {
         }
 
     },
-    checkItem: async (req, res) => {
-        try{
-        const list = await modules.findOne({_id: req.params.listID})
-          list.items.findOneAndUpdate({_id: req.params.itemID}, 
-            {
-                $set:{
-                    completed: req.body.completed
-                }
-            }
-            )
-          list.save()
-          console.log(list)
-          console.log(list.items)
-          res.json(list)
-          
-        }
-        catch(err){
-            console.log(err)
-        }
-
-    },
     deleteItem: async(req, res) => {
         try{
           const list = await modules.findOne({_id: req.params.listID})
