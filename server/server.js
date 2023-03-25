@@ -34,6 +34,7 @@ const braindumpRoutes = require('./routes/braindump-routes')
 const scheduleRoutes = require('./routes/schedule-routes');
 const toDoRoutes = require('./routes/todo-routes');
 const timerRoutes = require('./routes/timer-routes')
+const worldClockRoutes = require('./routes/worldclock-routes')
 
 //require .env
 require("dotenv").config({path: "./config/.env"});
@@ -88,6 +89,7 @@ app.use("/braindump", braindumpRoutes);
 app.use("/schedule", scheduleRoutes);
 app.use("/todo", toDoRoutes);
 app.use("/timer", timerRoutes);
+app.use("/worldclock", worldClockRoutes)
 
 // //Server Running
 app.listen(process.env.PORT, () => {

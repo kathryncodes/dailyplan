@@ -9,7 +9,7 @@ const moduleSchema = new mongoose.Schema({
     moduleType:{
         type: String,
         required: true,
-        enum: ["schedule", "todo", "braindump", "reminders", "timer"]
+        enum: ["schedule", "todo", "braindump", "reminders", "timer", "worldclock"]
     },
     createdAt:{
         type: Date,

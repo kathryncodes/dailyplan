@@ -7,6 +7,7 @@ const dashboardController = require('../controllers/dashboard-controller');
 const scheduleRoutes = require('./schedule-routes');
 const brainDumpRoutes = require('./braindump-routes');
 const toDoRoutes = require('./todo-routes');
+const worldClockRoutes = require('./worldclock-routes');
 
 // load Dashboard page
 router.get("/", dashboardController.getDashboard);

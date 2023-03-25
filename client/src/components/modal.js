@@ -11,6 +11,7 @@ export const MyModal = (props) => {
                         <div className="">
                             {props.modalType === 'AddBlock' && <AddTimeBlock moduleID={props.moduleID} handleClose={handleClose}/>}
                             {props.modalType === 'AddTodoItem' && <AddTodoItem moduleID={props.moduleID} handleClose={handleClose}/>}
+                            {props.modalType === 'AddTimezone' && <AddTimezone moduleID={props.moduleID} handleClose={handleClose}/>}
                         </div>
                 </div>
             </div>
@@ -119,5 +120,18 @@ const AddTodoItem = ({moduleID, handleClose}) => {
             <button className='btn btn-primary mt-6' onClick={handleAddItem}>Add Item</button>
         </div>
     )
+
+}
+
+const AddTimezone = ({moduleID, handleClose}) => {
+
+
+return(
+    <div className="flex flex-col items-center justify-center gap-4 w-full">
+           <p>testing, testing</p>
+
+
+    </div>
+)
 
 }

@@ -2,6 +2,7 @@ import BraindumpComponent from '../components/modules/braindump';
 import ScheduleComponent from '../components/modules/schedule';
 import TodoComponent from '../components/modules/todo';
 import TimerComponent from '../components/modules/timer';
+import WorldClockComponent from '../components/modules/worldclock';
 import React from 'react';
 import { useEffect, useContext } from 'react'
 import Sidebar from '../components/sidebar';
@@ -44,6 +45,8 @@ const Dashboard = () => {
                         module.moduleType === 'todo' ? <TodoComponent key={module._id} todo={module} moduleID={module._id} />
                         :
                         module.moduleType === 'timer' ? <TimerComponent key={module._id} timer={module} moduleID={module._id} />                        
+                        :
+                        module.moduleType === 'worldclock' ? <WorldClockComponent key={module._id} worldclock={module} moduleID={module._id} /> 
                         :
                         null
                     ))}  

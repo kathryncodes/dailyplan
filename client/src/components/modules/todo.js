@@ -19,7 +19,6 @@ const TodoComponent = (todo) => {
     const [isOpen, setIsOpen] = useState(false)
     function handleOpen(){
         setIsOpen(true);
-        console.log(todo.moduleID)
     }
     function handleClose(){
         setIsOpen(false)
@@ -79,8 +78,6 @@ const TodoComponent = (todo) => {
 }
 
 const TodoItem = (props) => {
-    // if classname toggles to check, change styles
-    //use state for this
     const itemID = props.itemID
     const listID = props.listID
     const priority = props.priority
@@ -89,11 +86,6 @@ const TodoItem = (props) => {
 
     const {dispatch} = useContext(ModulesContext);
 
-    // const checkState = () => {
-    //     const checkComplete = localStorage.getItem(itemID)
-    //     checkComplete == true ? true : false
-    //     localStorage.setItem(itemID, completed)
-    // }
     const [completed, setCompleted] = useState(false)
 
     const completedStyle = {
@@ -135,11 +127,6 @@ const TodoItem = (props) => {
         padding: '2px 8px',
         borderRadius: '15px'
 
-    }
-
-    const dueDateStyle={
-        backgroundColor: 'grey',
-        color: 'black'
     }
 
     return( 
