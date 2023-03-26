@@ -82,12 +82,29 @@ const WorldClockComponent = (worldclock) => {
 }
 
 const Timezone = (props) => {
+
+    const city = props.city
+    const country = props.country
+
+    //API call with city & country
+    //format date and time from the result
    
     return(
-        <div>
-            <p>{props.city}, {props.country}</p>
-
+        <div className='flex justify-around content-center'>
+        <div className=''> 
+            <div className='flex justify-between content-center '>
+                <p className='font-bold text-2xl'>{city}</p>
+                <p className='text-2xl font-bold'>24:59</p>
+            </div>
+            <div className=' flex justify-between content-center'>
+                <p className='text-sm'>{country}</p>
+                <p className='text-sm text-right ml-6'>Wednesday, September 30</p>
+            </div>
         </div>
+        <button className='justify-end'>
+                <TrashIcon className="h-4 w-4"/>
+        </button>
+    </div>
 
     )
 

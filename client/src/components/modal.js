@@ -127,9 +127,11 @@ const AddTimezone = ({moduleID, handleClose}) => {
 
     const { dispatch } = useContext(ModulesContext)
 
+
+
     const handleAddTimezone = async() => {
 
-        console.log("clicked add timezone button")
+        //extract city/country by separating at , and place them into variables??
 
         const response = await fetch(`/worldclock/addTimezone/${moduleID}`, {
             method: 'PUT',
@@ -153,7 +155,8 @@ const AddTimezone = ({moduleID, handleClose}) => {
 
 return(
     <div className="flex flex-col items-center justify-center gap-4 w-full">
-           <input  type="text" />
+           <input  id="input" type="text" className="input input-ghost" placeholder="City, Country"/>
+           <label for="input" className="text-black">Enter a Location</label>
 
         <button className="btn btn-primary mt-6" onClick={handleAddTimezone}>Add Time Zone</button>
     </div>
