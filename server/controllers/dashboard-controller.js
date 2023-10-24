@@ -4,7 +4,7 @@ module.exports = {
     getDashboard: async (req, res) => {
         try{
             const modulesArray = await modules.find();
-            // console.log(modulesArray);
+             console.log(modulesArray);
             res.send(modulesArray);
         }
         catch(err){

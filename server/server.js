@@ -3,15 +3,41 @@ const express = require('express');
 const app = express();
 
 //import other dependencies
-const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
 const methodOverride = require('method-override');
 const flash = require('express-flash');
 const logger = require('morgan');
-const connectDB = require("./config/database");
+//const connectDB = require("./config/database");
 const cors = require('cors')
+
+//require .env
+require("dotenv").config({path: "./config/.env"});
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.l4fnnps.mongodb.net/?retryWrites=true&w=majority`;
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 
 //debug empty post request
 const bodyParser = require('body-parser')
@@ -36,14 +62,9 @@ const toDoRoutes = require('./routes/todo-routes');
 const timerRoutes = require('./routes/timer-routes')
 const worldClockRoutes = require('./routes/worldclock-routes')
 
-//require .env
-require("dotenv").config({path: "./config/.env"});
-
 //passport config
 require("./config/passport")(passport);
 
-//database connect
-connectDB();
 
 //set view engine
 app.set("view engine", "ejs");
@@ -63,16 +84,6 @@ app.use(logger("dev"));
 
 // //Use forms for put / delete
 app.use(methodOverride("_method"));
-
-//Setup Sessions - stored in MongoDB
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
-  })
-);
 
 
 // // Passport middleware
